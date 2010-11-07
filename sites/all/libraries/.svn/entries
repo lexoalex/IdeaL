@@ -1,0 +1,34 @@
+10
+
+dir
+314
+https://tree.linnovate.net/svnroot/idi/sites/all/libraries
+https://tree.linnovate.net/svnroot/idi
+
+
+
+2010-03-02T08:15:17.466053Z
+26
+idi
+
+
+svn:special svn:externals svn:needs-lock
+
+
+
+
+
+
+
+
+
+
+
+58230530-20cb-40aa-8d03-c5a03dd09273
+
+fckeditor
+dir
+
+getid3
+dir
+
