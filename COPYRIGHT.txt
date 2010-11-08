@@ -23,3 +23,7 @@ license, including:
 
   jQuery - Copyright (c) 2008 - 2009 John Resig
 
+Some modules included in this distribution are 
+Copyright (c) 2008, Acquia, Inc., are released under the terms of 
+the GNU General Public License, and rights not otherwise granted 
+in that License are reserved.

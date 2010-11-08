@@ -6,59 +6,65 @@
  * @return
  *   An array of modules to enable.
  */
-function ideal_pro_profile_modules() {
-  return array(     
-    'addthis', 
-    'admin', 
-    'admin_menu',  
-    'adminrole', 
-    'advanced_help', 
-    'backup_migrate',  
-    'backup_migrate_files',  
-    'boxes', 
-    'comment', 
-    'comment_notify',  
-    'content', 
+function ideal_pro_profile_modules() { 
+    $core = array(
+      'comment', 
+      'dblog',
+      'help', 
+    	'menu',  
+    	'path',
+    	'search',
+    	'taxonomy',
+      'tracker',
+    );
+    
+    $contrib = array(
+      'ctools', 
+       
+      'addthis', 
+      'admin', 
+      'admin_menu',  
+      'adminrole', 
+      'advanced_help', 
+      'backup_migrate',  
+      'backup_migrate_files',  
+      'boxes', 
+      'comment_notify',  
+      'content', 
  //   'content_profile', 
  //   'content_profile_registration',  
- //   'content_profile_tokens',  
-    'content_taxonomy',  
-    'content_taxonomy_options',  
-    'context', 
-    'context_layouts', 
-    'context_ui',  
-    'ctools',  
-    'dblog', 
+ //   'content_profile_tokens', 
+      'content_taxonomy',  
+      'content_taxonomy_options', 
+      'context', 
+      'context_layouts', 
+      'context_ui',  
  //   'devel', 
  //   'devel_generate',  
-    'faq', 
-    'features',  
-    'flag',  
-    'flag_abuse',  
-    'help',  
-    'ideal', 
-    'ideal_features',  
-    'menu',  
-    'optionwidgets', 
-    'path',  
-    'pathauto',  
-    'rules', 
-    'rules_admin', 
-    'search',  
-    'strongarm', 
-    'taxonomy',  
-    'token', 
-    'tracker ',
-    'userpoints  ',
-    'userpoints_rules',  
-    'views', 
-    'views_ui',  
-    'votingapi', 
-    'vud', 
-    'vud_node',  
-    'webform', 
-    'wysiwyg', 
-  );
+      'diff',
+      'faq', 
+      'features',  
+      'flag',  
+      'flag_abuse',   
+      'ideal',
+      'main',
+      'optionwidgets', 
+    	'pathauto',  
+    	'rules', 
+    	'rules_admin', 
+    	'strongarm', 
+    	'token', 
+    	'userpoints',
+    	'userpoints_rules',  
+    	'views', 
+    	'views_ui',  
+    	'votingapi', 
+    	'vud', 
+    	'vud_node',  
+    	'webform', 
+    	'wysiwyg', 
+    );
+    return array_merge($core, $contrib);
 }
 
 /**
@@ -88,7 +94,7 @@ function ideal_pro_profile_details() {
 function ideal_pro_profile_task_list() {
   
   global $conf;
-  $conf['site_name'] = 'IdeaL';
+  $conf['site_name'] = '';
   $conf['site_footer'] = 'IdeaL by <a href="http://www.linnovate.net">Linnovate</a>';
   $conf['theme_settings'] = array(
     'default_logo' => 0,
@@ -218,18 +224,26 @@ function ideal_pro_profile_tasks(&$task, $url) {
   variable_set('theme_settings', $theme_settings);
   
   //theme info
-  install_default_theme('garland');
-  install_admin_theme('rubik');	
+  // Enable default theme
+  //drupal_system_enable('theme', 'garland');
+  variable_set('theme_default', 'garland');
+  
+  //admin theme
+  variable_set('admin_theme', 'rubik');
   variable_set('node_admin_theme', TRUE); 
   
   // Basic settings.
   variable_set('site_frontpage', 'home');
   
+  // Set welcome message for anonymous users
+  variable_set('front_page', 'Welcome to '. variable_get('site_name', 'IdeaL') .'!');
+  
   // Update the menu router information.
   menu_rebuild();
   
-  _ideal_pro_install_menus();
-  _ideal_pro_placeholder_content();
+  //_ideal_pro_placeholder_content();
+  //_ideal_pro_install_menus();
+ 
 }
 
 /**
@@ -245,46 +259,46 @@ function ideal_pro_form_alter(&$form, $form_state, $form_id) {
   }
 }
 
-function _ideal_pro_placeholder_content() {
-  $user = user_load(array('uid' => 1));
- 
-  $page = array (
-    'type' => 'page',
-    'language' => 'en',
-    'uid' => 1,
-    'status' => 1,
-    'comment' => 0,
-    'promote' => 0,
-    'moderate' => 0,
-    'sticky' => 0,
-    'tnid' => 0,
-    'translate' => 0,    
-    'revision_uid' => 1,
-    'title' => st('Default'),
-    'body' => 'Placeholder',    
-    'format' => 2,
-    'name' => $user->name,
-  );
-  
-  $about_us = (object) $page;
-  $about_us->title = st('About Us');
-  node_save($about_us);	
-  
-  $termsofuse = (object) $page;
-  $termsofuse->title = st('Terms of Use');
-  node_save($termsofuse);
-  
-  $privacypolicy = (object) $page;
-  $privacypolicy->title = st('Privacy Policy');
-  node_save($privacypolicy); 
-  
-  menu_rebuild();
-}
-function _ideal_pro_install_menus() {
-  
-  install_menu_create_menu_item('node/1', 'About Us','', 'primary-links', 0, 1);
-  install_menu_create_menu_item('node/2','Terms of Use', '', 'primary-links', 0, 2);
-  install_menu_create_menu_item('node/3','Privacy Policy', '', 'primary-links', 0, 3);
-  
-  menu_rebuild();
-}
+//function _ideal_pro_placeholder_content() {
+//  $user = user_load(array('uid' => 1));
+// 
+//  $page = array (
+//    'type' => 'page',
+//    'language' => 'en',
+//    'uid' => 1,
+//    'status' => 1,
+//    'comment' => 0,
+//    'promote' => 0,
+//    'moderate' => 0,
+//    'sticky' => 0,
+//    'tnid' => 0,
+//    'translate' => 0,    
+//    'revision_uid' => 1,
+//    'title' => st('Default'),
+//    'body' => 'Placeholder',    
+//    'format' => 2,
+//    'name' => $user->name,
+//  );
+//  
+//  $about_us = (object) $page;
+//  $about_us->title = st('About Us');
+//  node_save($about_us);	
+//  
+//  $termsofuse = (object) $page;
+//  $termsofuse->title = st('Terms of Use');
+//  node_save($termsofuse);
+//  
+//  $privacypolicy = (object) $page;
+//  $privacypolicy->title = st('Privacy Policy');
+//  node_save($privacypolicy); 
+//  
+//  menu_rebuild();
+//}
+//function _ideal_pro_install_menus() {
+//  
+//  install_menu_create_menu_item('node/1', 'About Us','', 'primary-links', 0, 1);
+//  install_menu_create_menu_item('node/2','Terms of Use', '', 'primary-links', 0, 2);
+//  install_menu_create_menu_item('node/3','Privacy Policy', '', 'primary-links', 0, 3);
+//  
+//  menu_rebuild();
+//}
