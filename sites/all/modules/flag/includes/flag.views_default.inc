@@ -1,5 +1,5 @@
 <?php
-// $Id: flag.views_default.inc,v 1.1.2.5 2009/02/22 22:20:39 quicksketch Exp $
+// $Id: flag.views_default.inc,v 1.1.2.5.2.1 2009/09/28 02:05:06 quicksketch Exp $
 
 /**
  * @file
@@ -103,7 +103,7 @@ function flag_views_default_views() {
 
   $access = array(
     'type' => 'role',
-    'role' => drupal_map_assoc($flag->roles),
+    'role' => drupal_map_assoc($flag->roles['flag']),
     'perm' => '',
   );
 

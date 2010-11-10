@@ -19,6 +19,10 @@ function ideal_pro_profile_modules() {
     );
     
     $contrib = array(
+      //pressflow
+      'cookie_cache_bypass',
+      'path_alias_cache',
+      //ctools
       'ctools', 
        
       'addthis', 
@@ -38,8 +42,8 @@ function ideal_pro_profile_modules() {
       'content_taxonomy_options', 
       'context', 
       'context_layouts', 
-      'context_ui',  
- //   'devel', 
+      'context_ui',
+      'devel', 
  //   'devel_generate',  
       'diff',
       'faq', 
@@ -47,9 +51,12 @@ function ideal_pro_profile_modules() {
       'flag',  
       'flag_abuse',   
       'ideal',
+    	'install_profile_api',
+      'jquery_ui',
+    	'login_destination',
       'main',
       'optionwidgets', 
-    	'pathauto',  
+    	'pathauto', 
     	'rules', 
     	'rules_admin', 
     	'strongarm', 
@@ -154,6 +161,8 @@ function ideal_pro_profile_task_list() {
  *   modify the $task, otherwise discarded.
  */
 function ideal_pro_profile_tasks(&$task, $url) {
+  
+  install_include(ideal_pro_profile_modules());
 
   // Insert default user-defined node types into the database. For a complete
   // list of available node type attributes, refer to the node type API
@@ -170,43 +179,43 @@ function ideal_pro_profile_tasks(&$task, $url) {
       'help' => '',
       'min_word_count' => '',
     ),
-    array(
-      'type' => 'idea',
-      'name' => st('Idea'),
-      'module' => 'node',
-    	'title_label' => 'Idea',
-  		'body_label' => 'description',
-      'description' => st("An <em>idea</em>, allows authenticated users to describe their ideas."),
-      'custom' => TRUE,
-      'modified' => TRUE,
-      'locked' => FALSE,
-      'help' => '',
-      'min_word_count' => '',
-    	'node_options' => 
-        array (
-          'status' =>   TRUE,
-          'promote' =>  FALSE,
-          'sticky' =>   FALSE,
-          'revision' => FALSE,
-        ),
-      'language_content_type' => '0',
-      'upload' => '0',
-      'nodewords' => 0,
-      'modified' => '1',
-      'locked' => '0',
-      'rdf_schema_class' => '',
-      'comment' => '2',
-      'comment_default_mode' => '3',
-      'comment_default_order' => '1',
-      'comment_default_per_page' => '50',
-      'comment_controls' => '3',
-      'comment_anonymous' => 0,
-      'comment_subject_field' => '0',
-      'comment_preview' => '0',
-      'comment_form_location' => '1',
-      'xmlsitemap_node_type_priority' => '0.5',
-      'xmlsitemap_old_priority' => '0.5',  
-    ),
+//    array(
+//      'type' => 'idea',
+//      'name' => st('Idea'),
+//      'module' => 'node',
+//    	'title_label' => 'Idea',
+//  		'body_label' => 'description',
+//      'description' => st("An <em>idea</em>, allows authenticated users to describe their ideas."),
+//      'custom' => TRUE,
+//      'modified' => TRUE,
+//      'locked' => FALSE,
+//      'help' => '',
+//      'min_word_count' => '',
+//    	'node_options' => 
+//        array (
+//          'status' =>   TRUE,
+//          'promote' =>  FALSE,
+//          'sticky' =>   FALSE,
+//          'revision' => FALSE,
+//        ),
+//      'language_content_type' => '0',
+//      'upload' => '0',
+//      'nodewords' => 0,
+//      'modified' => '1',
+//      'locked' => '0',
+//      'rdf_schema_class' => '',
+//      'comment' => '2',
+//      'comment_default_mode' => '3',
+//      'comment_default_order' => '1',
+//      'comment_default_per_page' => '50',
+//      'comment_controls' => '3',
+//      'comment_anonymous' => 0,
+//      'comment_subject_field' => '0',
+//      'comment_preview' => '0',
+//      'comment_form_location' => '1',
+//      'xmlsitemap_node_type_priority' => '0.5',
+//      'xmlsitemap_old_priority' => '0.5',  
+//    ),
   );
 
   foreach ($types as $type) {
@@ -224,26 +233,25 @@ function ideal_pro_profile_tasks(&$task, $url) {
   variable_set('theme_settings', $theme_settings);
   
   //theme info
-  // Enable default theme
-  //drupal_system_enable('theme', 'garland');
-  variable_set('theme_default', 'garland');
+  _ideal_pro_set_theme('ideal_theme', 'rubik', 'home');
+      
+  //creates dummy terms.
+  _ideal_pro_create_terms();
   
-  //admin theme
-  variable_set('admin_theme', 'rubik');
-  variable_set('node_admin_theme', TRUE); 
+  //creates dummy users.
+  _ideal_pro_add_users();
   
-  // Basic settings.
-  variable_set('site_frontpage', 'home');
+  //creates dummy ideas.
+  _ideal_pro_add_ideas();
   
-  // Set welcome message for anonymous users
-  variable_set('front_page', 'Welcome to '. variable_get('site_name', 'IdeaL') .'!');
+  //creates general pages.
+  _ideal_pro_add_pages();
+  
+  //creates menu items.
+  _ideal_pro_add_menu_items();
   
   // Update the menu router information.
   menu_rebuild();
-  
-  //_ideal_pro_placeholder_content();
-  //_ideal_pro_install_menus();
- 
 }
 
 /**
@@ -259,46 +267,98 @@ function ideal_pro_form_alter(&$form, $form_state, $form_id) {
   }
 }
 
-//function _ideal_pro_placeholder_content() {
-//  $user = user_load(array('uid' => 1));
-// 
-//  $page = array (
-//    'type' => 'page',
-//    'language' => 'en',
-//    'uid' => 1,
-//    'status' => 1,
-//    'comment' => 0,
-//    'promote' => 0,
-//    'moderate' => 0,
-//    'sticky' => 0,
-//    'tnid' => 0,
-//    'translate' => 0,    
-//    'revision_uid' => 1,
-//    'title' => st('Default'),
-//    'body' => 'Placeholder',    
-//    'format' => 2,
-//    'name' => $user->name,
-//  );
-//  
-//  $about_us = (object) $page;
-//  $about_us->title = st('About Us');
-//  node_save($about_us);	
-//  
-//  $termsofuse = (object) $page;
-//  $termsofuse->title = st('Terms of Use');
-//  node_save($termsofuse);
-//  
-//  $privacypolicy = (object) $page;
-//  $privacypolicy->title = st('Privacy Policy');
-//  node_save($privacypolicy); 
-//  
-//  menu_rebuild();
-//}
-//function _ideal_pro_install_menus() {
-//  
-//  install_menu_create_menu_item('node/1', 'About Us','', 'primary-links', 0, 1);
-//  install_menu_create_menu_item('node/2','Terms of Use', '', 'primary-links', 0, 2);
-//  install_menu_create_menu_item('node/3','Privacy Policy', '', 'primary-links', 0, 3);
-//  
-//  menu_rebuild();
-//}
+/**
+ * themes settings
+ * @param $default_theme
+ * @param $admin_theme
+ * @param u$frontpage
+ */
+function  _ideal_pro_set_theme($default_theme, $admin_theme, $frontpage) {
+  //disabled the drupal default theme
+  install_disable_theme('garland');
+  
+  //default theme
+  install_default_theme($default_theme);
+  
+  //admin theme
+  install_admin_theme($default_theme);
+  variable_set('node_admin_theme', TRUE); 
+  
+  // Basic settings.
+  variable_set('site_frontpage', $frontpage);
+  
+  //remove default blocks
+  install_disable_block('user', 0, $default_theme);//login block.
+  install_disable_block('user', 1, $default_theme);//navigation block
+  install_disable_block('system', 0, $default_theme);//powered by drupal block.
+  
+  // Set welcome message for anonymous users
+  variable_set('front_page', 'Welcome to '. variable_get('site_name', 'IdeaL') .'!');
+}
+
+/**
+ * Create dummy terms.
+ */
+function _ideal_pro_create_terms() {
+  $vids = array(2, 3, 4);
+  foreach ($vids as $vid) {
+    $names = array(abc, def, ghi);
+    foreach ($names as $name) {
+      install_taxonomy_add_term($vid, $name . ' - ' . $vid);
+    }
+  }
+}
+
+/**
+ * Add dummy users.
+ */
+function _ideal_pro_add_users() {
+  $users = array(dan, ben, sara);
+  foreach($users as $user){
+    install_add_user($user, $user . '1234', $user . '@email.com', 'authenticated user', 1);
+  }
+}
+
+/**
+ * Generate dummy of content type idea.
+ */
+function _ideal_pro_add_ideas() {
+  $user = user_load(array('uid' => 1));
+  $properties = array(
+  	'type' => 'idea',
+  	'uid' => 1,
+    'name' => $user->name,
+  );
+  $ideas = array('Good idea', 'Great idea', 'An idea');
+  foreach($ideas as $idea){
+    install_create_node($idea, 'Your idea description..', $properties);
+  } 
+}
+
+/**
+ * Generate general pages.
+ */
+function _ideal_pro_add_pages() {
+  $user = user_load(array('uid' => 1));
+  $properties = array(
+  	'type' => 'page',
+  	'uid' => 1,
+    'name' => $user->name,
+  );
+  $pages = array('About us', 'Terms of Use', 'Privacy Policy');
+  foreach($pages as $page){
+    install_create_node($page, 'Your content goes here', $properties);
+  }
+}
+
+/**
+ * Set menu items..
+ */
+function _ideal_pro_add_menu_items() {
+  //install_menu_create_menu_item($path, $title, $description = '', $menu = 'navigation', $plid = 0, $weight = 0, $module = 'menu', $hidden = 0, $has_children = 0, $expanded = 0, $customized = 0, $updated = 0);
+  install_menu_create_menu_item('about-us','About Us','', 'primary-links', 0, 1);
+  install_menu_create_menu_item('terms-of-use','Terms of Use', '', 'primary-links', 0, 2);
+  install_menu_create_menu_item('privacy-policy','Privacy Policy', '', 'primary-links', 0, 3);
+  install_menu_create_menu_item('faq','FAQ', '', 'primary-links', 0, 4);
+}
+

@@ -12,7 +12,7 @@
   <?php print $scripts; ?>
 </head>
 
-<body class="<?php print $body_classes; ?> ">
+<body class="<?php print $body_classes; ?> show-grid">
   <div id="page" class="container-16 clear-block">
 
     <div id="site-header" class="clear-block">

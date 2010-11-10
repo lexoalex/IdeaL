@@ -98,7 +98,7 @@ function ideal_form_alter(&$form, $form_state, $form_id) {
   global $user;
   switch ($form_id) {
     case 'idea_node_form':
-      if (!(in_array('administrator', array_values($user->roles)))) {
+      if (!(in_array('administrator', array_values($user->roles))) && $user->uid != 1) {
         $form['field_in_action']['#access']                   = FALSE;
         $form['path']['#access']                              = FALSE;
         $form['comment_settings']['#access']                  = FALSE;
