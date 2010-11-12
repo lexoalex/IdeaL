@@ -35,16 +35,17 @@ function main_strongarm() {
   $strongarm->value = array(
     'title' => '-9',
     'body_field' => '-8',
-    'revision_information' => '0',
-    'author' => '-1',
-    'options' => '1',
-    'comment_settings' => '2',
-    'menu' => '-4',
-    'path' => '3',
-    'detailed_question' => '-2',
-    'flag' => '-3',
+    'revision_information' => '-2',
+    'author' => '-3',
+    'options' => '-1',
+    'comment_settings' => '0',
+    'menu' => '-6',
+    'taxonomy' => '-7',
+    'path' => '1',
+    'detailed_question' => '-4',
+    'flag' => '-5',
     'vud_node_widget_display' => '-10',
-    'xmlsitemap' => '4',
+    'xmlsitemap' => '2',
   );
 
   $export['content_extra_weights_idea'] = $strongarm;
@@ -160,6 +161,13 @@ function main_strongarm() {
   $strongarm->value = '[title-raw]';
 
   $export['pathauto_node_pattern'] = $strongarm;
+  $strongarm = new stdClass;
+  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
+  $strongarm->api_version = 1;
+  $strongarm->name = 'pathauto_taxonomy_pattern';
+  $strongarm->value = '[vocab-raw]/[catpath-raw]';
+
+  $export['pathauto_taxonomy_pattern'] = $strongarm;
   $strongarm = new stdClass;
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
   $strongarm->api_version = 1;

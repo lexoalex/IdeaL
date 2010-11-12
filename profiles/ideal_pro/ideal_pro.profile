@@ -38,8 +38,6 @@ function ideal_pro_profile_modules() {
  //   'content_profile', 
  //   'content_profile_registration',  
  //   'content_profile_tokens', 
-      'content_taxonomy',  
-      'content_taxonomy_options', 
       'context', 
       'context_layouts', 
       'context_ui',
@@ -59,11 +57,12 @@ function ideal_pro_profile_modules() {
     	'pathauto', 
     	'rules', 
     	'rules_admin', 
-    	'strongarm', 
+    	'strongarm',
     	'token', 
     	'userpoints',
     	'userpoints_rules',  
-    	'views', 
+    	'views',
+      'views_groupby',
     	'views_ui',  
     	'votingapi', 
     	'vud', 
@@ -281,7 +280,7 @@ function  _ideal_pro_set_theme($default_theme, $admin_theme, $frontpage) {
   install_default_theme($default_theme);
   
   //admin theme
-  install_admin_theme($default_theme);
+  install_admin_theme($admin_theme);
   variable_set('node_admin_theme', TRUE); 
   
   // Basic settings.

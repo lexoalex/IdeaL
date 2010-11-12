@@ -973,9 +973,8 @@ function main_views_default_views() {
   $handler->override_option('title', 'Recent comments');
   $handler->override_option('items_per_page', 5);
   $handler->override_option('use_more', 1);
-  $handler->override_option('style_plugin', 'list');
   $handler->override_option('style_options', array(
-    'type' => 'ul',
+    'grouping' => '',
   ));
   $handler = $view->new_display('page', 'Page', 'page');
   $handler->override_option('fields', array(
@@ -1014,6 +1013,10 @@ function main_views_default_views() {
   ));
   $handler->override_option('items_per_page', 25);
   $handler->override_option('use_pager', '1');
+  $handler->override_option('style_plugin', 'list');
+  $handler->override_option('style_options', array(
+    'type' => 'ul',
+  ));
   $handler->override_option('row_options', array(
     'inline' => array(
       'title' => 'title',
@@ -1053,9 +1056,19 @@ function main_views_default_views() {
   $view->api_version = 2;
   $view->disabled = FALSE; /* Edit this to true to make a default view disabled initially */
   $handler = $view->new_display('default', 'Defaults', 'default');
+  $handler->override_option('relationships', array(
+    'vid' => array(
+      'label' => 'node',
+      'required' => 0,
+      'id' => 'vid',
+      'table' => 'term_node',
+      'field' => 'vid',
+      'relationship' => 'none',
+    ),
+  ));
   $handler->override_option('fields', array(
     'name' => array(
-      'label' => '',
+      'label' => 'Term',
       'alter' => array(
         'alter_text' => 0,
         'text' => '',
@@ -1078,7 +1091,7 @@ function main_views_default_views() {
       'hide_empty' => 0,
       'empty_zero' => 0,
       'link_to_taxonomy' => 1,
-      'exclude' => 0,
+      'exclude' => 1,
       'id' => 'name',
       'table' => 'term_data',
       'field' => 'name',
@@ -1087,73 +1100,99 @@ function main_views_default_views() {
         'button' => 'Override',
       ),
     ),
-  ));
-  $handler->override_option('arguments', array(
-    'name' => array(
-      'default_action' => 'summary desc',
-      'style_plugin' => 'default_summary',
-      'style_options' => array(
-        'count' => 1,
-        'override' => 0,
-        'items_per_page' => '25',
+    'nid' => array(
+      'label' => '',
+      'alter' => array(
+        'alter_text' => 1,
+        'text' => '[name]  ( [nid] )',
+        'make_link' => 0,
+        'path' => '',
+        'link_class' => '',
+        'alt' => '',
+        'prefix' => '',
+        'suffix' => '',
+        'target' => '',
+        'help' => '',
+        'trim' => 0,
+        'max_length' => '',
+        'word_boundary' => 1,
+        'ellipsis' => 1,
+        'html' => 0,
+        'strip_tags' => 0,
       ),
-      'wildcard' => 'all',
-      'wildcard_substitution' => 'All',
-      'title' => '',
-      'breadcrumb' => '',
-      'default_argument_type' => 'fixed',
-      'default_argument' => '',
-      'validate_type' => 'taxonomy_term',
-      'validate_fail' => 'not found',
-      'glossary' => 0,
-      'limit' => '0',
-      'case' => 'none',
-      'path_case' => 'none',
-      'transform_dash' => 1,
-      'add_table' => 1,
-      'require_value' => 0,
-      'id' => 'name',
+      'empty' => '',
+      'hide_empty' => 1,
+      'empty_zero' => 1,
+      'link_to_node' => 0,
+      'exclude' => 0,
+      'id' => 'nid',
+      'table' => 'node',
+      'field' => 'nid',
+      'relationship' => 'vid',
+      'override' => array(
+        'button' => 'Override',
+      ),
+    ),
+    'views_sql_groupedfields' => array(
+      'label' => 'Group By Fields',
+      'alter' => array(
+        'alter_text' => FALSE,
+        'text' => '',
+        'make_link' => FALSE,
+        'path' => '',
+        'alt' => '',
+        'link_class' => '',
+        'prefix' => '',
+        'suffix' => '',
+        'target' => '',
+        'trim' => FALSE,
+        'max_length' => '',
+        'word_boundary' => TRUE,
+        'ellipsis' => TRUE,
+        'strip_tags' => FALSE,
+        'html' => FALSE,
+      ),
+      'empty' => '',
+      'hide_empty' => 0,
+      'empty_zero' => 0,
+      'exclude' => '1',
+      'id' => 'views_sql_groupedfields',
+      'table' => 'views_groupby',
+      'field' => 'views_sql_groupedfields',
+      'relationship' => 'none',
+      'views_groupby_fields_to_group' => array(
+        'name' => 'name',
+      ),
+      'views_groupby_sql_function' => 'count',
+      'views_groupby_fields_to_aggregate' => array(
+        'nid' => 'nid',
+      ),
+      'views_groupby_field_sortby' => 'nid',
+      'views_groupby_sortby_direction' => 'desc',
+      'override' => array(
+        'button' => 'Override',
+      ),
+    ),
+  ));
+  $handler->override_option('filters', array(
+    'vid' => array(
+      'operator' => 'in',
+      'value' => array(
+        '3' => '3',
+      ),
+      'group' => '0',
+      'exposed' => FALSE,
+      'expose' => array(
+        'operator' => FALSE,
+        'label' => '',
+      ),
+      'id' => 'vid',
       'table' => 'term_data',
-      'field' => 'name',
-      'validate_user_argument_type' => 'uid',
-      'validate_user_roles' => array(
-        '2' => 0,
-        '5' => 0,
-        '3' => 0,
-        '4' => 0,
+      'field' => 'vid',
+      'override' => array(
+        'button' => 'Override',
       ),
       'relationship' => 'none',
-      'default_options_div_prefix' => '',
-      'default_argument_fixed' => '',
-      'default_argument_user' => 0,
-      'default_argument_php' => '',
-      'validate_argument_node_type' => array(
-        'webform' => 0,
-        'faq' => 0,
-        'idea' => 0,
-        'in_action' => 0,
-        'profile' => 0,
-        'user_profile' => 0,
-      ),
-      'validate_argument_node_access' => 0,
-      'validate_argument_nid_type' => 'nid',
-      'validate_argument_vocabulary' => array(
-        '3' => 3,
-        '2' => 2,
-        '6' => 0,
-        '7' => 0,
-        '1' => 0,
-      ),
-      'validate_argument_type' => 'tid',
-      'validate_argument_transform' => 0,
-      'validate_user_restrict_roles' => 0,
-      'validate_argument_node_flag_name' => '*relationship*',
-      'validate_argument_node_flag_test' => 'flaggable',
-      'validate_argument_node_flag_id_type' => 'id',
-      'validate_argument_user_flag_name' => '*relationship*',
-      'validate_argument_user_flag_test' => 'flaggable',
-      'validate_argument_user_flag_id_type' => 'id',
-      'validate_argument_php' => '',
     ),
   ));
   $handler->override_option('access', array(
@@ -1166,149 +1205,50 @@ function main_views_default_views() {
     'grouping' => '',
   ));
   $handler = $view->new_display('block', 'Category', 'block_1');
-  $handler->override_option('arguments', array(
-    'name' => array(
-      'default_action' => 'summary desc',
-      'style_plugin' => 'unformatted_summary',
-      'style_options' => array(
-        'count' => 1,
-        'override' => 0,
-        'items_per_page' => '25',
-        'inline' => 0,
-        'separator' => '',
+  $handler->override_option('filters', array(
+    'vid' => array(
+      'operator' => 'in',
+      'value' => array(
+        '3' => '3',
       ),
-      'wildcard' => 'all',
-      'wildcard_substitution' => 'All',
-      'title' => '',
-      'breadcrumb' => '',
-      'default_argument_type' => 'fixed',
-      'default_argument' => '',
-      'validate_type' => 'taxonomy_term',
-      'validate_fail' => 'not found',
-      'glossary' => 0,
-      'limit' => '0',
-      'case' => 'none',
-      'path_case' => 'none',
-      'transform_dash' => 1,
-      'add_table' => 0,
-      'require_value' => 0,
-      'id' => 'name',
+      'group' => '0',
+      'exposed' => FALSE,
+      'expose' => array(
+        'operator' => FALSE,
+        'label' => '',
+      ),
+      'id' => 'vid',
       'table' => 'term_data',
-      'field' => 'name',
-      'validate_user_argument_type' => 'uid',
-      'validate_user_roles' => array(
-        '2' => 0,
-        '5' => 0,
-        '3' => 0,
-        '4' => 0,
-      ),
-      'relationship' => 'none',
-      'default_options_div_prefix' => '',
-      'default_argument_fixed' => '',
-      'default_argument_user' => 0,
-      'default_argument_php' => '',
-      'validate_argument_node_type' => array(
-        'webform' => 0,
-        'faq' => 0,
-        'idea' => 0,
-        'profile' => 0,
-      ),
-      'validate_argument_node_access' => 0,
-      'validate_argument_nid_type' => 'nid',
-      'validate_argument_vocabulary' => array(
-        '3' => 3,
-        '6' => 0,
-        '2' => 0,
-        '1' => 0,
-      ),
-      'validate_argument_type' => 'tid',
-      'validate_argument_transform' => 0,
-      'validate_user_restrict_roles' => 0,
-      'validate_argument_node_flag_name' => '*relationship*',
-      'validate_argument_node_flag_test' => 'flaggable',
-      'validate_argument_node_flag_id_type' => 'id',
-      'validate_argument_user_flag_name' => '*relationship*',
-      'validate_argument_user_flag_test' => 'flaggable',
-      'validate_argument_user_flag_id_type' => 'id',
-      'validate_argument_php' => '',
+      'field' => 'vid',
       'override' => array(
         'button' => 'Use default',
       ),
+      'relationship' => 'none',
     ),
   ));
   $handler->override_option('title', 'Category');
   $handler->override_option('block_description', '');
   $handler->override_option('block_caching', -1);
   $handler = $view->new_display('block', 'Tags', 'block_2');
-  $handler->override_option('arguments', array(
-    'name' => array(
-      'default_action' => 'summary desc',
-      'style_plugin' => 'default_summary',
-      'style_options' => array(
-        'count' => 1,
-        'override' => 0,
-        'items_per_page' => '25',
+  $handler->override_option('filters', array(
+    'vid' => array(
+      'operator' => 'in',
+      'value' => array(
+        '2' => '2',
       ),
-      'wildcard' => 'all',
-      'wildcard_substitution' => 'All',
-      'title' => '',
-      'breadcrumb' => '',
-      'default_argument_type' => 'fixed',
-      'default_argument' => '',
-      'validate_type' => 'taxonomy_term',
-      'validate_fail' => 'not found',
-      'glossary' => 0,
-      'limit' => '0',
-      'case' => 'none',
-      'path_case' => 'none',
-      'transform_dash' => 1,
-      'add_table' => 1,
-      'require_value' => 0,
-      'id' => 'name',
+      'group' => '0',
+      'exposed' => FALSE,
+      'expose' => array(
+        'operator' => FALSE,
+        'label' => '',
+      ),
+      'id' => 'vid',
       'table' => 'term_data',
-      'field' => 'name',
-      'validate_user_argument_type' => 'uid',
-      'validate_user_roles' => array(
-        '2' => 0,
-        '5' => 0,
-        '3' => 0,
-        '4' => 0,
-      ),
-      'relationship' => 'none',
-      'default_options_div_prefix' => '',
-      'default_argument_fixed' => '',
-      'default_argument_user' => 0,
-      'default_argument_php' => '',
-      'validate_argument_node_type' => array(
-        'webform' => 0,
-        'faq' => 0,
-        'idea' => 0,
-        'in_action' => 0,
-        'profile' => 0,
-        'user_profile' => 0,
-      ),
-      'validate_argument_node_access' => 0,
-      'validate_argument_nid_type' => 'nid',
-      'validate_argument_vocabulary' => array(
-        '2' => 2,
-        '3' => 0,
-        '6' => 0,
-        '7' => 0,
-        '1' => 0,
-      ),
-      'validate_argument_type' => 'tid',
-      'validate_argument_transform' => 0,
-      'validate_user_restrict_roles' => 0,
-      'validate_argument_node_flag_name' => '*relationship*',
-      'validate_argument_node_flag_test' => 'flaggable',
-      'validate_argument_node_flag_id_type' => 'id',
-      'validate_argument_user_flag_name' => '*relationship*',
-      'validate_argument_user_flag_test' => 'flaggable',
-      'validate_argument_user_flag_id_type' => 'id',
-      'validate_argument_php' => '',
+      'field' => 'vid',
       'override' => array(
         'button' => 'Use default',
       ),
+      'relationship' => 'none',
     ),
   ));
   $handler->override_option('title', 'Tags');

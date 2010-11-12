@@ -21,24 +21,6 @@ function main_context_default_contexts() {
   $context->reactions = array(
     'block' => array(
       'blocks' => array(
-        'views-recent_comments-block' => array(
-          'module' => 'views',
-          'delta' => 'recent_comments-block',
-          'region' => 'right',
-          'weight' => 0,
-        ),
-        'views-terms-block_1' => array(
-          'module' => 'views',
-          'delta' => 'terms-block_1',
-          'region' => 'right',
-          'weight' => 1,
-        ),
-        'views-terms-block_2' => array(
-          'module' => 'views',
-          'delta' => 'terms-block_2',
-          'region' => 'right',
-          'weight' => 2,
-        ),
         'views-ideas-block_1' => array(
           'module' => 'views',
           'delta' => 'ideas-block_1',
@@ -73,11 +55,35 @@ function main_context_default_contexts() {
   $context->reactions = array(
     'block' => array(
       'blocks' => array(
-        'search-0' => array(
-          'module' => 'search',
-          'delta' => 0,
-          'region' => 'header',
+        'views-recent_comments-block' => array(
+          'module' => 'views',
+          'delta' => 'recent_comments-block',
+          'region' => 'right',
           'weight' => 0,
+        ),
+        'views-terms-block_2' => array(
+          'module' => 'views',
+          'delta' => 'terms-block_2',
+          'region' => 'right',
+          'weight' => 1,
+        ),
+        'views-terms-block_1' => array(
+          'module' => 'views',
+          'delta' => 'terms-block_1',
+          'region' => 'right',
+          'weight' => 2,
+        ),
+        'ideal-categories' => array(
+          'module' => 'ideal',
+          'delta' => 'categories',
+          'region' => 'right',
+          'weight' => 3,
+        ),
+        'ideal-tags' => array(
+          'module' => 'ideal',
+          'delta' => 'tags',
+          'region' => 'right',
+          'weight' => 4,
         ),
       ),
     ),
@@ -108,18 +114,6 @@ function main_context_default_contexts() {
           'delta' => 'recent_comments-block',
           'region' => 'right',
           'weight' => 0,
-        ),
-        'views-terms-block_1' => array(
-          'module' => 'views',
-          'delta' => 'terms-block_1',
-          'region' => 'right',
-          'weight' => 1,
-        ),
-        'views-terms-block_2' => array(
-          'module' => 'views',
-          'delta' => 'terms-block_2',
-          'region' => 'right',
-          'weight' => 2,
         ),
       ),
     ),
