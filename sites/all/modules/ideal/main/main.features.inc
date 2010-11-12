@@ -6410,6 +6410,190 @@ function main_rules_defaults() {
         ),
         '#version' => 6003,
       ),
+      'main_88' => array(
+        '#type' => 'rule',
+        '#set' => 'event_node_presave',
+        '#label' => 'In action - under review',
+        '#active' => 1,
+        '#weight' => '0',
+        '#categories' => array(
+          '0' => 'points',
+          'main' => 'main',
+        ),
+        '#status' => 'default',
+        '#conditions' => array(
+          '0' => array(
+            '#weight' => 0,
+            '#info' => array(
+              'label' => 'Content has term',
+              'arguments' => array(
+                'node' => array(
+                  'type' => 'node',
+                  'label' => 'Content',
+                ),
+              ),
+              'module' => 'Ideal',
+            ),
+            '#name' => 'ideal_condition_content_has_term',
+            '#settings' => array(
+              'term' => 'under review',
+              '#argument map' => array(
+                'node' => 'node',
+              ),
+            ),
+            '#type' => 'condition',
+          ),
+        ),
+        '#actions' => array(
+          '1' => array(
+            '#weight' => 0,
+            '#info' => array(
+              'label' => 'Grant points to a user',
+              'arguments' => array(
+                'user' => array(
+                  'type' => 'user',
+                  'label' => 'User',
+                ),
+              ),
+              'module' => 'Userpoints',
+              'eval input' => array(
+                '0' => 'points',
+              ),
+            ),
+            '#name' => 'userpoints_action_grant_points',
+            '#settings' => array(
+              'points' => '3',
+              '#argument map' => array(
+                'user' => 'author',
+              ),
+            ),
+            '#type' => 'action',
+          ),
+        ),
+        '#version' => 6003,
+      ),
+      'main_89' => array(
+        '#type' => 'rule',
+        '#set' => 'event_node_presave',
+        '#label' => 'In action - launched',
+        '#active' => 1,
+        '#weight' => '0',
+        '#categories' => array(
+          '0' => 'points',
+          'main' => 'main',
+        ),
+        '#status' => 'default',
+        '#conditions' => array(
+          '0' => array(
+            '#weight' => 0,
+            '#info' => array(
+              'label' => 'Content has term',
+              'arguments' => array(
+                'node' => array(
+                  'type' => 'node',
+                  'label' => 'Content',
+                ),
+              ),
+              'module' => 'Ideal',
+            ),
+            '#name' => 'ideal_condition_content_has_term',
+            '#settings' => array(
+              'term' => 'launched',
+              '#argument map' => array(
+                'node' => 'node',
+              ),
+            ),
+            '#type' => 'condition',
+          ),
+        ),
+        '#actions' => array(
+          '1' => array(
+            '#weight' => 0,
+            '#info' => array(
+              'label' => 'Grant points to a user',
+              'arguments' => array(
+                'user' => array(
+                  'type' => 'user',
+                  'label' => 'User',
+                ),
+              ),
+              'module' => 'Userpoints',
+              'eval input' => array(
+                '0' => 'points',
+              ),
+            ),
+            '#name' => 'userpoints_action_grant_points',
+            '#settings' => array(
+              'points' => '10',
+              '#argument map' => array(
+                'user' => 'author',
+              ),
+            ),
+            '#type' => 'action',
+          ),
+        ),
+        '#version' => 6003,
+      ),
+      'main_90' => array(
+        '#type' => 'rule',
+        '#set' => 'event_flag_flagged_in_action',
+        '#label' => 'In Action - close for new comments',
+        '#active' => 1,
+        '#weight' => '0',
+        '#categories' => array(
+          '0' => 'in action',
+          'main' => 'main',
+        ),
+        '#status' => 'default',
+        '#conditions' => array(
+          '0' => array(
+            '#type' => 'condition',
+            '#settings' => array(
+              'type' => array(
+                'idea' => 'idea',
+              ),
+              '#argument map' => array(
+                'node' => 'node',
+              ),
+            ),
+            '#name' => 'rules_condition_content_is_type',
+            '#info' => array(
+              'label' => 'Flagged content is Idea',
+              'arguments' => array(
+                'node' => array(
+                  'type' => 'node',
+                  'label' => 'Content',
+                ),
+              ),
+              'module' => 'Node',
+            ),
+            '#weight' => 0,
+          ),
+        ),
+        '#actions' => array(
+          '0' => array(
+            '#weight' => 0,
+            '#info' => array(
+              'label' => 'close node from adding new comments',
+              'module' => 'Ideal',
+              'arguments' => array(
+                'node' => array(
+                  'type' => 'node',
+                  'label' => 'Content',
+                ),
+              ),
+            ),
+            '#name' => 'ideal_close_comments',
+            '#settings' => array(
+              '#argument map' => array(
+                'node' => 'node',
+              ),
+            ),
+            '#type' => 'action',
+          ),
+        ),
+        '#version' => 6003,
+      ),
     ),
   );
 }

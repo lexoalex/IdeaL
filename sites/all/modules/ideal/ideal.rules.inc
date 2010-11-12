@@ -7,27 +7,38 @@
 */
 function ideal_rules_action_info() {
   return array(
-    'ideal_close_comments' => array(
+    'ideal_action_close_comments' => array(
       'label' => t('close node from adding new comments'),
       'module' => 'Ideal',
       'arguments' => array(
         'node' => array('type' => 'node', 'label' => t('Content')),
         ),
       ),
+//      'ideal_action_grant_points_to_comment_author' => array(
+//      'label' => t('Grant !points to a comment author ', userpoints_translation()),
+//      'arguments' => array(
+//          'user' => array('type' => 'user', 'label' => t('User'))
+//        ),
+//      'module' => 'Ideal',
+//      'eval input' => array('points'),
+//    ),
   );
 }
 
 /**
 * Action Implementation: close node from adding new comments.
-* @ingroup rules
 */
-function ideal_close_comments($node) {
-  //if ($node = node_load($nid)) {
-    $node->comment = 1;
-  //}; 
+function ideal_action_close_comments($node) {
+  $node->comment = 1;
   return array('node' => $node);
-  
 }
+
+///**
+// *  Action Implementation: grant points to a committers.
+// */
+//function userpoints_action_grant_points_to_comment_author($account, $settings) {
+//  userpoints_userpointsapi(array('uid' => $account->uid, 'points' => $settings['points']));
+//}
 
 //===rules conditions
 
@@ -36,11 +47,13 @@ function ideal_close_comments($node) {
 */
 function ideal_rules_condition_info() {
   return array(
-    'ideal_condition_term_exists' => array(
-      'label' => t('Term exists'),
-     'eval input' => array('term_exists|vocab_text', 'term_exists|term_text'),
-      'help' => t('Check whether the specified term exists.'),
-      'module' => 'Taxonomy',
+    'ideal_condition_content_has_term' => array(
+      'label' => t('Content has term'),
+     	'arguments' => array(
+        'node' => array('type' => 'node', 'label' => t('Content')),
+        ),
+      'help' => t('Check whether the node has a specified term.'),
+      'module' => 'Ideal',
     ),
   );
 }
@@ -48,18 +61,13 @@ function ideal_rules_condition_info() {
 /**
  * Condition Implementation: Check if term exists on node.
  */
-function ideal_condition_term_exists($settings) {
-  $vid = $settings['vocabulary']['vocab_select'];
-  $term_text = $settings['term_exists']['term_text'];
-  $terms = taxonomy_get_term_by_name($term_text);
-
-  if (!$vid) {
-    // Term of any vocabulary is a match.
-    return count($terms) > 0;
+function ideal_condition_content_has_term($node, $settings) {
+  if (!is_numeric($settings['term'])) {
+    $settings['term'] = db_result(db_query("SELECT tid FROM {term_data} WHERE LOWER(name) = '%s'", strtolower($settings['term'])));
   }
-  foreach ($terms as $term) {
-    if ($term->vid == $vid) {
-      return TRUE;
+  foreach ($node->taxonomy as $term) {
+    if ($term->tid == $settings['term']) {
+       return TRUE;
     }
   }
   return FALSE;
