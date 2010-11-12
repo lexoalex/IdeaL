@@ -14,14 +14,6 @@ function ideal_rules_action_info() {
         'node' => array('type' => 'node', 'label' => t('Content')),
         ),
       ),
-//      'ideal_action_grant_points_to_comment_author' => array(
-//      'label' => t('Grant !points to a comment author ', userpoints_translation()),
-//      'arguments' => array(
-//          'user' => array('type' => 'user', 'label' => t('User'))
-//        ),
-//      'module' => 'Ideal',
-//      'eval input' => array('points'),
-//    ),
   );
 }
 
@@ -32,13 +24,6 @@ function ideal_action_close_comments($node) {
   $node->comment = 1;
   return array('node' => $node);
 }
-
-///**
-// *  Action Implementation: grant points to a committers.
-// */
-//function userpoints_action_grant_points_to_comment_author($account, $settings) {
-//  userpoints_userpointsapi(array('uid' => $account->uid, 'points' => $settings['points']));
-//}
 
 //===rules conditions
 

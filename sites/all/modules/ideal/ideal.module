@@ -33,35 +33,44 @@ function ideal_theme_pages($key) {
 function ideal_nodeapi(&$node, $op, $a3 = NULL, $a4 = NULL) {
   switch ($op) {
     case 'presave':
+      //get the comments author an this node.
+      $resource = db_query("SELECT cid, uid FROM {comments} WHERE nid = %d", $node->nid);
+      //Go over the comment authors and send them to the rule set to grant them points.
+      while($row = db_fetch_array( $resource )) {
+        $comment_author = $row['uid'];
+        $t=rules_invoke_rule_set('rules_points_to_comments_authors', array('user' => $comment_author, 'node' => $node));
+        dpm($t);
+      }
+      
       // TODO:  Move this to rules module/
-      if ($node->type == 'idea') {
-        //if it's have tags 'Under Review' or 'Launched'.
-        foreach($node->taxonomy as $term){
-        if (strtolower($term->name) == t('under review') || strtolower($term->name == t('launched'))) {
-          $sql = "SELECT cid, uid FROM {comments} WHERE nid = %d";
-          $resource = db_query($sql, $node->nid);
-          //Go over the comment authors/
-          while($row = db_fetch_array( $resource )) {
-            $comment_author = $row['uid'];
-            //if the tag is 'Under Review' Add 1 point to author of comment/
-            if (strtolower($term->name) == t('under review')) {
-              $params = array (
-              	'uid' => $comment_author,
-          			'points' => 1,
-              );
-            }
-            //if the tag is 'Launched' Add 2 points to athour of comment
-            if (strtolower($term->name) == t('launched')) {
-              $params = array (
-              	'uid' => $comment_author,
-          			'points' => 2,
-              );
-            }
-            userpoints_userpointsapi($params); 
-          }
-        }   
-      }   
-    }  
+//      if ($node->type == 'idea') {
+//        //if it's have tags 'Under Review' or 'Launched'.
+//        foreach($node->taxonomy as $term){
+//        if (strtolower($term->name) == t('under review') || strtolower($term->name == t('launched'))) {
+//          $sql = "SELECT cid, uid FROM {comments} WHERE nid = %d";
+//          $resource = db_query($sql, $node->nid);
+//          //Go over the comment authors/
+//          while($row = db_fetch_array( $resource )) {
+//            $comment_author = $row['uid'];
+//            //if the tag is 'Under Review' Add 1 point to author of comment/
+//            if (strtolower($term->name) == t('under review')) {
+//              $params = array (
+//              	'uid' => $comment_author,
+//          			'points' => 1,
+//              );
+//            }
+//            //if the tag is 'Launched' Add 2 points to athour of comment
+//            if (strtolower($term->name) == t('launched')) {
+//              $params = array (
+//              	'uid' => $comment_author,
+//          			'points' => 2,
+//              );
+//            }
+//            userpoints_userpointsapi($params); 
+//          }
+//        }   
+//      }   
+//    }  
   break;
   };
 }
