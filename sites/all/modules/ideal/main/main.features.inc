@@ -182,19 +182,19 @@ $flags[] = array (
   'unflag_long' => 'open this idea for comments and voting',
   'unflag_message' => '',
   'unflag_denied_text' => '',
-  'link_type' => 'toggle',
+  'link_type' => 'normal',
   'roles' => 
   array (
     'flag' => 
     array (
-      0 => 2,
+      0 => 5,
     ),
     'unflag' => 
     array (
-      0 => 2,
+      0 => 5,
     ),
   ),
-  'show_on_page' => 0,
+  'show_on_page' => 1,
   'show_on_teaser' => 0,
   'show_on_form' => 1,
   'access_author' => '',
@@ -351,6 +351,66 @@ function main_rules_defaults() {
               ),
             ),
             '#weight' => 0,
+          ),
+        ),
+        '#version' => 6003,
+      ),
+      'main_93' => array(
+        '#type' => 'rule',
+        '#set' => 'event_flag_flagged_in_action',
+        '#label' => 'In Action - close for new comments',
+        '#active' => 1,
+        '#weight' => '0',
+        '#categories' => array(
+          '0' => 'in action',
+          'main' => 'main',
+        ),
+        '#status' => 'default',
+        '#conditions' => array(
+          '0' => array(
+            '#type' => 'condition',
+            '#settings' => array(
+              'type' => array(
+                'idea' => 'idea',
+              ),
+              '#argument map' => array(
+                'node' => 'node',
+              ),
+            ),
+            '#name' => 'rules_condition_content_is_type',
+            '#info' => array(
+              'label' => 'Flagged content is Idea',
+              'arguments' => array(
+                'node' => array(
+                  'type' => 'node',
+                  'label' => 'Content',
+                ),
+              ),
+              'module' => 'Node',
+            ),
+            '#weight' => 0,
+          ),
+        ),
+        '#actions' => array(
+          '0' => array(
+            '#weight' => 0,
+            '#info' => array(
+              'label' => 'close node from adding new comments',
+              'module' => 'Ideal',
+              'arguments' => array(
+                'node' => array(
+                  'type' => 'node',
+                  'label' => 'Content',
+                ),
+              ),
+            ),
+            '#name' => 'ideal_action_close_comments',
+            '#settings' => array(
+              '#argument map' => array(
+                'node' => 'node',
+              ),
+            ),
+            '#type' => 'action',
           ),
         ),
         '#version' => 6003,
@@ -839,66 +899,6 @@ function main_rules_defaults() {
               'points' => '10',
               '#argument map' => array(
                 'user' => 'author',
-              ),
-            ),
-            '#type' => 'action',
-          ),
-        ),
-        '#version' => 6003,
-      ),
-      'main_93' => array(
-        '#type' => 'rule',
-        '#set' => 'event_flag_flagged_in_action',
-        '#label' => 'In Action - close for new comments',
-        '#active' => 1,
-        '#weight' => '0',
-        '#categories' => array(
-          '0' => 'in action',
-          'main' => 'main',
-        ),
-        '#status' => 'default',
-        '#conditions' => array(
-          '0' => array(
-            '#type' => 'condition',
-            '#settings' => array(
-              'type' => array(
-                'idea' => 'idea',
-              ),
-              '#argument map' => array(
-                'node' => 'node',
-              ),
-            ),
-            '#name' => 'rules_condition_content_is_type',
-            '#info' => array(
-              'label' => 'Flagged content is Idea',
-              'arguments' => array(
-                'node' => array(
-                  'type' => 'node',
-                  'label' => 'Content',
-                ),
-              ),
-              'module' => 'Node',
-            ),
-            '#weight' => 0,
-          ),
-        ),
-        '#actions' => array(
-          '0' => array(
-            '#weight' => 0,
-            '#info' => array(
-              'label' => 'close node from adding new comments',
-              'module' => 'Ideal',
-              'arguments' => array(
-                'node' => array(
-                  'type' => 'node',
-                  'label' => 'Content',
-                ),
-              ),
-            ),
-            '#name' => 'ideal_close_comments',
-            '#settings' => array(
-              '#argument map' => array(
-                'node' => 'node',
               ),
             ),
             '#type' => 'action',
