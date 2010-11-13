@@ -50,9 +50,10 @@ function ideal_condition_content_has_term($node, $settings) {
   if (!is_numeric($settings['term'])) {
     $settings['term'] = db_result(db_query("SELECT tid FROM {term_data} WHERE LOWER(name) = '%s'", strtolower($settings['term'])));
   }
+  
   foreach ($node->taxonomy as $term) {
-    if ($term->tid == $settings['term']) {
-       return TRUE;
+    if ($term == $settings['term']) {
+      return TRUE;
     }
   }
   return FALSE;
