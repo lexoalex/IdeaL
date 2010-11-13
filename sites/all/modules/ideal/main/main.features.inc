@@ -231,6 +231,258 @@ function main_node_info() {
 function main_rules_defaults() {
   return array(
     'rules' => array(
+      'main_86' => array(
+        '#type' => 'rule',
+        '#set' => 'event_node_insert',
+        '#label' => 'Idea points',
+        '#active' => 1,
+        '#weight' => '0',
+        '#categories' => array(
+          '0' => 'points',
+          'main' => 'main',
+        ),
+        '#status' => 'default',
+        '#conditions' => array(
+          '0' => array(
+            '#info' => array(
+              'label' => 'Created content is Idea',
+              'arguments' => array(
+                'node' => array(
+                  'type' => 'node',
+                  'label' => 'Content',
+                ),
+              ),
+              'module' => 'Node',
+            ),
+            '#name' => 'rules_condition_content_is_type',
+            '#settings' => array(
+              'type' => array(
+                'idea' => 'idea',
+              ),
+              '#argument map' => array(
+                'node' => 'node',
+              ),
+            ),
+            '#type' => 'condition',
+            '#weight' => 0,
+          ),
+        ),
+        '#actions' => array(
+          '0' => array(
+            '#weight' => 0,
+            '#type' => 'action',
+            '#settings' => array(
+              'points' => '5',
+              '#argument map' => array(
+                'user' => 'author',
+              ),
+            ),
+            '#name' => 'userpoints_action_grant_points',
+            '#info' => array(
+              'label' => 'Grant points to a user',
+              'arguments' => array(
+                'user' => array(
+                  'type' => 'user',
+                  'label' => 'User',
+                ),
+              ),
+              'module' => 'Userpoints',
+              'eval input' => array(
+                '0' => 'points',
+              ),
+            ),
+          ),
+        ),
+        '#version' => 6003,
+      ),
+      'main_87' => array(
+        '#type' => 'rule',
+        '#set' => 'event_comment_insert',
+        '#label' => 'Comment points',
+        '#active' => 1,
+        '#weight' => '0',
+        '#categories' => array(
+          '0' => 'points',
+          'main' => 'main',
+        ),
+        '#status' => 'default',
+        '#conditions' => array(
+          '0' => array(
+            '#weight' => 0,
+            '#info' => array(
+              'label' => 'Commented content is Idea',
+              'arguments' => array(
+                'node' => array(
+                  'type' => 'node',
+                  'label' => 'Content',
+                ),
+              ),
+              'module' => 'Node',
+            ),
+            '#name' => 'rules_condition_content_is_type',
+            '#settings' => array(
+              'type' => array(
+                'idea' => 'idea',
+              ),
+              '#argument map' => array(
+                'node' => 'node',
+              ),
+            ),
+            '#type' => 'condition',
+          ),
+        ),
+        '#actions' => array(
+          '0' => array(
+            '#weight' => 0,
+            '#type' => 'action',
+            '#settings' => array(
+              'points' => '1',
+              '#argument map' => array(
+                'user' => 'comment_author',
+              ),
+            ),
+            '#name' => 'userpoints_action_grant_points',
+            '#info' => array(
+              'label' => 'Grant points to a user',
+              'arguments' => array(
+                'user' => array(
+                  'type' => 'user',
+                  'label' => 'User',
+                ),
+              ),
+              'module' => 'Userpoints',
+              'eval input' => array(
+                '0' => 'points',
+              ),
+            ),
+          ),
+        ),
+        '#version' => 6003,
+      ),
+      'main_88' => array(
+        '#type' => 'rule',
+        '#set' => 'event_node_presave',
+        '#label' => 'In action - under review',
+        '#active' => 1,
+        '#weight' => '0',
+        '#categories' => array(
+          '0' => 'points',
+          'main' => 'main',
+        ),
+        '#status' => 'default',
+        '#conditions' => array(
+          '0' => array(
+            '#type' => 'condition',
+            '#settings' => array(
+              'term' => 'under review',
+              '#argument map' => array(
+                'node' => 'node',
+              ),
+            ),
+            '#name' => 'ideal_condition_content_has_term',
+            '#info' => array(
+              'label' => 'Content has term',
+              'arguments' => array(
+                'node' => array(
+                  'type' => 'node',
+                  'label' => 'Content',
+                ),
+              ),
+              'module' => 'Ideal',
+            ),
+            '#weight' => 0,
+          ),
+        ),
+        '#actions' => array(
+          '1' => array(
+            '#weight' => 0,
+            '#type' => 'action',
+            '#settings' => array(
+              'points' => '3',
+              '#argument map' => array(
+                'user' => 'author',
+              ),
+            ),
+            '#name' => 'userpoints_action_grant_points',
+            '#info' => array(
+              'label' => 'Grant points to a user',
+              'arguments' => array(
+                'user' => array(
+                  'type' => 'user',
+                  'label' => 'User',
+                ),
+              ),
+              'module' => 'Userpoints',
+              'eval input' => array(
+                '0' => 'points',
+              ),
+            ),
+          ),
+        ),
+        '#version' => 6003,
+      ),
+      'main_89' => array(
+        '#type' => 'rule',
+        '#set' => 'event_node_presave',
+        '#label' => 'In action - launched',
+        '#active' => 1,
+        '#weight' => '0',
+        '#categories' => array(
+          '0' => 'points',
+          'main' => 'main',
+        ),
+        '#status' => 'default',
+        '#conditions' => array(
+          '0' => array(
+            '#type' => 'condition',
+            '#settings' => array(
+              'term' => 'launched',
+              '#argument map' => array(
+                'node' => 'node',
+              ),
+            ),
+            '#name' => 'ideal_condition_content_has_term',
+            '#info' => array(
+              'label' => 'Content has term',
+              'arguments' => array(
+                'node' => array(
+                  'type' => 'node',
+                  'label' => 'Content',
+                ),
+              ),
+              'module' => 'Ideal',
+            ),
+            '#weight' => 0,
+          ),
+        ),
+        '#actions' => array(
+          '1' => array(
+            '#weight' => 0,
+            '#type' => 'action',
+            '#settings' => array(
+              'points' => '10',
+              '#argument map' => array(
+                'user' => 'author',
+              ),
+            ),
+            '#name' => 'userpoints_action_grant_points',
+            '#info' => array(
+              'label' => 'Grant points to a user',
+              'arguments' => array(
+                'user' => array(
+                  'type' => 'user',
+                  'label' => 'User',
+                ),
+              ),
+              'module' => 'Userpoints',
+              'eval input' => array(
+                '0' => 'points',
+              ),
+            ),
+          ),
+        ),
+        '#version' => 6003,
+      ),
       'main_91' => array(
         '#type' => 'rule',
         '#set' => 'rules_points_to_comments_authors',
@@ -647,258 +899,6 @@ function main_rules_defaults() {
                     '0' => 'flagging_user',
                   ),
                 ),
-              ),
-            ),
-            '#type' => 'action',
-          ),
-        ),
-        '#version' => 6003,
-      ),
-      'main_86' => array(
-        '#type' => 'rule',
-        '#set' => 'event_node_insert',
-        '#label' => 'Idea points',
-        '#active' => 1,
-        '#weight' => '0',
-        '#categories' => array(
-          '0' => 'points',
-          'main' => 'main',
-        ),
-        '#status' => 'default',
-        '#conditions' => array(
-          '0' => array(
-            '#weight' => 0,
-            '#type' => 'condition',
-            '#settings' => array(
-              'type' => array(
-                'idea' => 'idea',
-              ),
-              '#argument map' => array(
-                'node' => 'node',
-              ),
-            ),
-            '#name' => 'rules_condition_content_is_type',
-            '#info' => array(
-              'label' => 'Created content is Idea',
-              'arguments' => array(
-                'node' => array(
-                  'type' => 'node',
-                  'label' => 'Content',
-                ),
-              ),
-              'module' => 'Node',
-            ),
-          ),
-        ),
-        '#actions' => array(
-          '0' => array(
-            '#weight' => 0,
-            '#info' => array(
-              'label' => 'Grant points to a user',
-              'arguments' => array(
-                'user' => array(
-                  'type' => 'user',
-                  'label' => 'User',
-                ),
-              ),
-              'module' => 'Userpoints',
-              'eval input' => array(
-                '0' => 'points',
-              ),
-            ),
-            '#name' => 'userpoints_action_grant_points',
-            '#settings' => array(
-              'points' => '5',
-              '#argument map' => array(
-                'user' => 'user',
-              ),
-            ),
-            '#type' => 'action',
-          ),
-        ),
-        '#version' => 6003,
-      ),
-      'main_87' => array(
-        '#type' => 'rule',
-        '#set' => 'event_comment_insert',
-        '#label' => 'Comment points',
-        '#active' => 1,
-        '#weight' => '0',
-        '#categories' => array(
-          '0' => 'points',
-          'main' => 'main',
-        ),
-        '#status' => 'default',
-        '#conditions' => array(
-          '0' => array(
-            '#type' => 'condition',
-            '#settings' => array(
-              'type' => array(
-                'idea' => 'idea',
-              ),
-              '#argument map' => array(
-                'node' => 'node',
-              ),
-            ),
-            '#name' => 'rules_condition_content_is_type',
-            '#info' => array(
-              'label' => 'Commented content is Idea',
-              'arguments' => array(
-                'node' => array(
-                  'type' => 'node',
-                  'label' => 'Content',
-                ),
-              ),
-              'module' => 'Node',
-            ),
-            '#weight' => 0,
-          ),
-        ),
-        '#actions' => array(
-          '0' => array(
-            '#weight' => 0,
-            '#info' => array(
-              'label' => 'Grant points to a user',
-              'arguments' => array(
-                'user' => array(
-                  'type' => 'user',
-                  'label' => 'User',
-                ),
-              ),
-              'module' => 'Userpoints',
-              'eval input' => array(
-                '0' => 'points',
-              ),
-            ),
-            '#name' => 'userpoints_action_grant_points',
-            '#settings' => array(
-              'points' => '1',
-              '#argument map' => array(
-                'user' => 'user',
-              ),
-            ),
-            '#type' => 'action',
-          ),
-        ),
-        '#version' => 6003,
-      ),
-      'main_88' => array(
-        '#type' => 'rule',
-        '#set' => 'event_node_presave',
-        '#label' => 'In action - under review',
-        '#active' => 1,
-        '#weight' => '0',
-        '#categories' => array(
-          '0' => 'points',
-          'main' => 'main',
-        ),
-        '#status' => 'default',
-        '#conditions' => array(
-          '0' => array(
-            '#weight' => 0,
-            '#info' => array(
-              'label' => 'Content has term',
-              'arguments' => array(
-                'node' => array(
-                  'type' => 'node',
-                  'label' => 'Content',
-                ),
-              ),
-              'module' => 'Ideal',
-            ),
-            '#name' => 'ideal_condition_content_has_term',
-            '#settings' => array(
-              'term' => 'under review',
-              '#argument map' => array(
-                'node' => 'node',
-              ),
-            ),
-            '#type' => 'condition',
-          ),
-        ),
-        '#actions' => array(
-          '1' => array(
-            '#weight' => 0,
-            '#info' => array(
-              'label' => 'Grant points to a user',
-              'arguments' => array(
-                'user' => array(
-                  'type' => 'user',
-                  'label' => 'User',
-                ),
-              ),
-              'module' => 'Userpoints',
-              'eval input' => array(
-                '0' => 'points',
-              ),
-            ),
-            '#name' => 'userpoints_action_grant_points',
-            '#settings' => array(
-              'points' => '3',
-              '#argument map' => array(
-                'user' => 'author',
-              ),
-            ),
-            '#type' => 'action',
-          ),
-        ),
-        '#version' => 6003,
-      ),
-      'main_89' => array(
-        '#type' => 'rule',
-        '#set' => 'event_node_presave',
-        '#label' => 'In action - launched',
-        '#active' => 1,
-        '#weight' => '0',
-        '#categories' => array(
-          '0' => 'points',
-          'main' => 'main',
-        ),
-        '#status' => 'default',
-        '#conditions' => array(
-          '0' => array(
-            '#weight' => 0,
-            '#info' => array(
-              'label' => 'Content has term',
-              'arguments' => array(
-                'node' => array(
-                  'type' => 'node',
-                  'label' => 'Content',
-                ),
-              ),
-              'module' => 'Ideal',
-            ),
-            '#name' => 'ideal_condition_content_has_term',
-            '#settings' => array(
-              'term' => 'launched',
-              '#argument map' => array(
-                'node' => 'node',
-              ),
-            ),
-            '#type' => 'condition',
-          ),
-        ),
-        '#actions' => array(
-          '1' => array(
-            '#weight' => 0,
-            '#info' => array(
-              'label' => 'Grant points to a user',
-              'arguments' => array(
-                'user' => array(
-                  'type' => 'user',
-                  'label' => 'User',
-                ),
-              ),
-              'module' => 'Userpoints',
-              'eval input' => array(
-                '0' => 'points',
-              ),
-            ),
-            '#name' => 'userpoints_action_grant_points',
-            '#settings' => array(
-              'points' => '10',
-              '#argument map' => array(
-                'user' => 'author',
               ),
             ),
             '#type' => 'action',
