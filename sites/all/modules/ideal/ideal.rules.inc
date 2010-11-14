@@ -48,11 +48,26 @@ function ideal_rules_condition_info() {
  */
 function ideal_condition_content_has_term($node, $settings) {
   if (!is_numeric($settings['term'])) {
-    $settings['term'] = db_result(db_query("SELECT tid FROM {term_data} WHERE LOWER(name) = '%s'", strtolower($settings['term'])));
+    //$settings['term'] = db_result(db_query("SELECT tid FROM {term_data} WHERE LOWER(name) = '%s'", strtolower($settings['term'])));
+    $terms = taxonomy_get_term_by_name($settings['term']);
+    dpm($terms);
+    foreach ($terms as $tr) {
+      foreach ($node->taxonomy as $term) {
+        if (is_numeric($term)) {
+          $term = taxonomy_get_term($term);
+        }
+        if ($term->tid == $tr->tid) {
+          return TRUE;
+        }
+      }
+    }
   }
   
   foreach ($node->taxonomy as $term) {
-    if ($term == $settings['term']) {
+    if (is_numeric($term)) {
+      $term = taxonomy_get_term($term);
+    }
+    if ($term->tid == $settings['term']) {
       return TRUE;
     }
   }
