@@ -1,5 +1,11 @@
 <?php 
 
+/**
+ * Form for input term ID or term name. 
+ * @param $settings
+ * @param $form
+ * @param $form_state
+ */
 function ideal_condition_content_has_term_form($settings, &$form, $form_state) {
   $form['settings']['term'] = array(
     '#type' => 'textfield',
