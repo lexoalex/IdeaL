@@ -244,6 +244,16 @@ function main_rules_defaults() {
         '#status' => 'default',
         '#conditions' => array(
           '0' => array(
+            '#weight' => 0,
+            '#type' => 'condition',
+            '#settings' => array(
+              'field_name' => 'field_in_action',
+              '#argument map' => array(
+                'node' => 'node',
+                'node_unchanged' => 'node2',
+              ),
+            ),
+            '#name' => 'content_rules_field_changed',
             '#info' => array(
               'label' => 'Content\'s field \'field_in_action\' has been changed',
               'arguments' => array(
@@ -258,19 +268,23 @@ function main_rules_defaults() {
               ),
               'module' => 'CCK',
             ),
-            '#name' => 'content_rules_field_changed',
+          ),
+          '1' => array(
+            '#type' => 'condition',
             '#settings' => array(
               'field_name' => 'field_in_action',
               '#argument map' => array(
                 'node' => 'node',
-                'node_unchanged' => 'node',
               ),
+              'value' => array(
+                '0' => array(
+                  'value' => 'Under Review',
+                ),
+              ),
+              'code' => '',
+              'vars' => array(),
             ),
-            '#type' => 'condition',
-            '#weight' => 0,
-          ),
-          '1' => array(
-            '#weight' => 0,
+            '#name' => 'content_rules_field_has_value',
             '#info' => array(
               'label' => 'Content\'s field \'field_in_action\' has value',
               'arguments' => array(
@@ -285,26 +299,19 @@ function main_rules_defaults() {
               ),
               'module' => 'CCK',
             ),
-            '#name' => 'content_rules_field_has_value',
-            '#settings' => array(
-              'field_name' => 'field_in_action',
-              '#argument map' => array(
-                'node' => 'node',
-              ),
-              'value' => array(
-                '0' => array(
-                  'value' => 'Under Review',
-                ),
-              ),
-              'code' => '',
-              'vars' => array(),
-            ),
-            '#type' => 'condition',
+            '#weight' => 0,
           ),
         ),
         '#actions' => array(
           '0' => array(
-            '#weight' => 0,
+            '#type' => 'action',
+            '#settings' => array(
+              'points' => '1',
+              '#argument map' => array(
+                'user' => 'user',
+              ),
+            ),
+            '#name' => 'userpoints_action_grant_points',
             '#info' => array(
               'label' => 'Grant points to a user',
               'arguments' => array(
@@ -318,14 +325,7 @@ function main_rules_defaults() {
                 '0' => 'points',
               ),
             ),
-            '#name' => 'userpoints_action_grant_points',
-            '#settings' => array(
-              'points' => '1',
-              '#argument map' => array(
-                'user' => 'user',
-              ),
-            ),
-            '#type' => 'action',
+            '#weight' => 0,
           ),
         ),
         '#version' => 6003,
