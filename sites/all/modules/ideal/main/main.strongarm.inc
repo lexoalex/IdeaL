@@ -8,10 +8,10 @@ function main_strongarm() {
   $strongarm = new stdClass;
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
   $strongarm->api_version = 1;
-  $strongarm->name = 'addthis_nodetype_profile';
+  $strongarm->name = 'addthis_nodetype_idea';
   $strongarm->value = 1;
 
-  $export['addthis_nodetype_profile'] = $strongarm;
+  $export['addthis_nodetype_idea'] = $strongarm;
   $strongarm = new stdClass;
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
   $strongarm->api_version = 1;
@@ -105,17 +105,17 @@ function main_strongarm() {
   $strongarm->value = array(
     'title' => '-9',
     'body_field' => '-8',
-    'revision_information' => '-2',
-    'author' => '-3',
-    'options' => '-1',
-    'comment_settings' => '0',
-    'menu' => '-6',
-    'taxonomy' => '-7',
-    'path' => '1',
-    'detailed_question' => '-4',
-    'flag' => '-5',
+    'revision_information' => '-1',
+    'author' => '-2',
+    'options' => '0',
+    'comment_settings' => '1',
+    'menu' => '-5',
+    'taxonomy' => '-6',
+    'path' => '2',
+    'detailed_question' => '-3',
+    'flag' => '-4',
     'vud_node_widget_display' => '-10',
-    'xmlsitemap' => '2',
+    'xmlsitemap' => '3',
   );
 
   $export['content_extra_weights_idea'] = $strongarm;

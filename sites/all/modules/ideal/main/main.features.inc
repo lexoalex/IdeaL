@@ -231,6 +231,303 @@ function main_node_info() {
 function main_rules_defaults() {
   return array(
     'rules' => array(
+      'main_88' => array(
+        '#type' => 'rule',
+        '#set' => 'event_node_presave',
+        '#label' => 'In action - under review',
+        '#active' => 1,
+        '#weight' => '0',
+        '#categories' => array(
+          '0' => 'points',
+          'main' => 'main',
+        ),
+        '#status' => 'default',
+        '#conditions' => array(
+          '1' => array(
+            '#weight' => 0,
+            '#info' => array(
+              'label' => 'Saved content\'s field \'field_in_action\' has been changed',
+              'arguments' => array(
+                'node' => array(
+                  'type' => 'node',
+                  'label' => 'Content containing changes',
+                ),
+                'node_unchanged' => array(
+                  'type' => 'node',
+                  'label' => 'Content not containing changes',
+                ),
+              ),
+              'module' => 'CCK',
+            ),
+            '#name' => 'content_rules_field_changed',
+            '#settings' => array(
+              'field_name' => 'field_in_action',
+              '#argument map' => array(
+                'node' => 'node',
+                'node_unchanged' => 'node_unchanged',
+              ),
+            ),
+            '#type' => 'condition',
+          ),
+          '2' => array(
+            '#type' => 'condition',
+            '#settings' => array(
+              'field_name' => 'field_in_action',
+              '#argument map' => array(
+                'node' => 'node',
+              ),
+              'value' => array(
+                '0' => array(
+                  'value' => 'Under Review',
+                ),
+              ),
+              'code' => '',
+              'vars' => array(),
+            ),
+            '#name' => 'content_rules_field_has_value',
+            '#info' => array(
+              'label' => 'Saved content\'s field \'field_in_action\' has value',
+              'arguments' => array(
+                'node' => array(
+                  'type' => 'node',
+                  'label' => 'Content',
+                ),
+              ),
+              'eval input' => array(
+                '0' => 'code',
+                '1' => 'value|0|value',
+              ),
+              'module' => 'CCK',
+            ),
+            '#weight' => 0,
+          ),
+        ),
+        '#actions' => array(
+          '1' => array(
+            '#info' => array(
+              'label' => 'Grant points to a user',
+              'arguments' => array(
+                'user' => array(
+                  'type' => 'user',
+                  'label' => 'User',
+                ),
+              ),
+              'module' => 'Userpoints',
+              'eval input' => array(
+                '0' => 'points',
+              ),
+            ),
+            '#name' => 'userpoints_action_grant_points',
+            '#settings' => array(
+              'points' => '3',
+              '#argument map' => array(
+                'user' => 'author',
+              ),
+            ),
+            '#type' => 'action',
+            '#weight' => 0,
+          ),
+        ),
+        '#version' => 6003,
+      ),
+      'main_89' => array(
+        '#type' => 'rule',
+        '#set' => 'event_node_presave',
+        '#label' => 'In action - launched',
+        '#active' => 1,
+        '#weight' => '0',
+        '#categories' => array(
+          '0' => 'points',
+          'main' => 'main',
+        ),
+        '#status' => 'default',
+        '#conditions' => array(
+          '1' => array(
+            '#weight' => 0,
+            '#info' => array(
+              'label' => 'Saved content\'s field \'field_in_action\' has been changed',
+              'arguments' => array(
+                'node' => array(
+                  'type' => 'node',
+                  'label' => 'Content containing changes',
+                ),
+                'node_unchanged' => array(
+                  'type' => 'node',
+                  'label' => 'Content not containing changes',
+                ),
+              ),
+              'module' => 'CCK',
+            ),
+            '#name' => 'content_rules_field_changed',
+            '#settings' => array(
+              'field_name' => 'field_in_action',
+              '#argument map' => array(
+                'node' => 'node',
+                'node_unchanged' => 'node_unchanged',
+              ),
+            ),
+            '#type' => 'condition',
+          ),
+          '2' => array(
+            '#type' => 'condition',
+            '#settings' => array(
+              'field_name' => 'field_in_action',
+              '#argument map' => array(
+                'node' => 'node',
+              ),
+              'value' => array(
+                '0' => array(
+                  'value' => 'Launched',
+                ),
+              ),
+              'code' => '',
+              'vars' => array(),
+            ),
+            '#name' => 'content_rules_field_has_value',
+            '#info' => array(
+              'label' => 'Saved content\'s field \'field_in_action\' has value',
+              'arguments' => array(
+                'node' => array(
+                  'type' => 'node',
+                  'label' => 'Content',
+                ),
+              ),
+              'eval input' => array(
+                '0' => 'code',
+                '1' => 'value|0|value',
+              ),
+              'module' => 'CCK',
+            ),
+            '#weight' => 0,
+          ),
+        ),
+        '#actions' => array(
+          '1' => array(
+            '#info' => array(
+              'label' => 'Grant points to a user',
+              'arguments' => array(
+                'user' => array(
+                  'type' => 'user',
+                  'label' => 'User',
+                ),
+              ),
+              'module' => 'Userpoints',
+              'eval input' => array(
+                '0' => 'points',
+              ),
+            ),
+            '#name' => 'userpoints_action_grant_points',
+            '#settings' => array(
+              'points' => '10',
+              '#argument map' => array(
+                'user' => 'author',
+              ),
+            ),
+            '#type' => 'action',
+            '#weight' => 0,
+          ),
+        ),
+        '#version' => 6003,
+      ),
+      'main_91' => array(
+        '#type' => 'rule',
+        '#set' => 'rules_points_to_comments_authors',
+        '#label' => 'under review comment author points',
+        '#active' => 1,
+        '#weight' => '0',
+        '#categories' => array(
+          '0' => 'points',
+          '1' => 'main',
+        ),
+        '#status' => 'default',
+        '#conditions' => array(
+          '0' => array(
+            '#info' => array(
+              'label' => 'Content\'s field \'field_in_action\' has been changed',
+              'arguments' => array(
+                'node' => array(
+                  'type' => 'node',
+                  'label' => 'Content containing changes',
+                ),
+                'node_unchanged' => array(
+                  'type' => 'node',
+                  'label' => 'Content not containing changes',
+                ),
+              ),
+              'module' => 'CCK',
+            ),
+            '#name' => 'content_rules_field_changed',
+            '#settings' => array(
+              'field_name' => 'field_in_action',
+              '#argument map' => array(
+                'node' => 'node',
+                'node_unchanged' => 'node',
+              ),
+            ),
+            '#type' => 'condition',
+            '#weight' => 0,
+          ),
+          '1' => array(
+            '#weight' => 0,
+            '#info' => array(
+              'label' => 'Content\'s field \'field_in_action\' has value',
+              'arguments' => array(
+                'node' => array(
+                  'type' => 'node',
+                  'label' => 'Content',
+                ),
+              ),
+              'eval input' => array(
+                '0' => 'code',
+                '1' => 'value|0|value',
+              ),
+              'module' => 'CCK',
+            ),
+            '#name' => 'content_rules_field_has_value',
+            '#settings' => array(
+              'field_name' => 'field_in_action',
+              '#argument map' => array(
+                'node' => 'node',
+              ),
+              'value' => array(
+                '0' => array(
+                  'value' => 'Under Review',
+                ),
+              ),
+              'code' => '',
+              'vars' => array(),
+            ),
+            '#type' => 'condition',
+          ),
+        ),
+        '#actions' => array(
+          '0' => array(
+            '#weight' => 0,
+            '#info' => array(
+              'label' => 'Grant points to a user',
+              'arguments' => array(
+                'user' => array(
+                  'type' => 'user',
+                  'label' => 'User',
+                ),
+              ),
+              'module' => 'Userpoints',
+              'eval input' => array(
+                '0' => 'points',
+              ),
+            ),
+            '#name' => 'userpoints_action_grant_points',
+            '#settings' => array(
+              'points' => '1',
+              '#argument map' => array(
+                'user' => 'user',
+              ),
+            ),
+            '#type' => 'action',
+          ),
+        ),
+        '#version' => 6003,
+      ),
       'main_86' => array(
         '#type' => 'rule',
         '#set' => 'event_node_insert',
@@ -355,192 +652,6 @@ function main_rules_defaults() {
                 '0' => 'points',
               ),
             ),
-          ),
-        ),
-        '#version' => 6003,
-      ),
-      'main_88' => array(
-        '#type' => 'rule',
-        '#set' => 'event_node_presave',
-        '#label' => 'In action - under review',
-        '#active' => 1,
-        '#weight' => '0',
-        '#categories' => array(
-          '0' => 'points',
-          'main' => 'main',
-        ),
-        '#status' => 'default',
-        '#conditions' => array(
-          '0' => array(
-            '#type' => 'condition',
-            '#settings' => array(
-              'term' => 'under review',
-              '#argument map' => array(
-                'node' => 'node',
-              ),
-            ),
-            '#name' => 'ideal_condition_content_has_term',
-            '#info' => array(
-              'label' => 'Content has term',
-              'arguments' => array(
-                'node' => array(
-                  'type' => 'node',
-                  'label' => 'Content',
-                ),
-              ),
-              'module' => 'Ideal',
-            ),
-            '#weight' => 0,
-          ),
-        ),
-        '#actions' => array(
-          '1' => array(
-            '#weight' => 0,
-            '#type' => 'action',
-            '#settings' => array(
-              'points' => '3',
-              '#argument map' => array(
-                'user' => 'author',
-              ),
-            ),
-            '#name' => 'userpoints_action_grant_points',
-            '#info' => array(
-              'label' => 'Grant points to a user',
-              'arguments' => array(
-                'user' => array(
-                  'type' => 'user',
-                  'label' => 'User',
-                ),
-              ),
-              'module' => 'Userpoints',
-              'eval input' => array(
-                '0' => 'points',
-              ),
-            ),
-          ),
-        ),
-        '#version' => 6003,
-      ),
-      'main_89' => array(
-        '#type' => 'rule',
-        '#set' => 'event_node_presave',
-        '#label' => 'In action - launched',
-        '#active' => 1,
-        '#weight' => '0',
-        '#categories' => array(
-          '0' => 'points',
-          'main' => 'main',
-        ),
-        '#status' => 'default',
-        '#conditions' => array(
-          '0' => array(
-            '#type' => 'condition',
-            '#settings' => array(
-              'term' => 'launched',
-              '#argument map' => array(
-                'node' => 'node',
-              ),
-            ),
-            '#name' => 'ideal_condition_content_has_term',
-            '#info' => array(
-              'label' => 'Content has term',
-              'arguments' => array(
-                'node' => array(
-                  'type' => 'node',
-                  'label' => 'Content',
-                ),
-              ),
-              'module' => 'Ideal',
-            ),
-            '#weight' => 0,
-          ),
-        ),
-        '#actions' => array(
-          '1' => array(
-            '#weight' => 0,
-            '#type' => 'action',
-            '#settings' => array(
-              'points' => '10',
-              '#argument map' => array(
-                'user' => 'author',
-              ),
-            ),
-            '#name' => 'userpoints_action_grant_points',
-            '#info' => array(
-              'label' => 'Grant points to a user',
-              'arguments' => array(
-                'user' => array(
-                  'type' => 'user',
-                  'label' => 'User',
-                ),
-              ),
-              'module' => 'Userpoints',
-              'eval input' => array(
-                '0' => 'points',
-              ),
-            ),
-          ),
-        ),
-        '#version' => 6003,
-      ),
-      'main_91' => array(
-        '#type' => 'rule',
-        '#set' => 'rules_points_to_comments_authors',
-        '#label' => 'under review comment author points',
-        '#active' => 1,
-        '#weight' => '0',
-        '#categories' => array(
-          '0' => 'points',
-          '1' => 'main',
-        ),
-        '#status' => 'default',
-        '#conditions' => array(
-          '0' => array(
-            '#weight' => 0,
-            '#info' => array(
-              'label' => 'Content has term',
-              'arguments' => array(
-                'node' => array(
-                  'type' => 'node',
-                  'label' => 'Content',
-                ),
-              ),
-              'module' => 'Ideal',
-            ),
-            '#name' => 'ideal_condition_content_has_term',
-            '#settings' => array(
-              'term' => 'under review',
-              '#argument map' => array(
-                'node' => 'node',
-              ),
-            ),
-            '#type' => 'condition',
-          ),
-        ),
-        '#actions' => array(
-          '0' => array(
-            '#type' => 'action',
-            '#settings' => array(
-              'points' => '1',
-              '#argument map' => array(
-                'user' => 'user',
-              ),
-            ),
-            '#name' => 'userpoints_action_grant_points',
-            '#info' => array(
-              'label' => 'Grant points to a user',
-              'arguments' => array(
-                'user' => array(
-                  'type' => 'user',
-                  'label' => 'User',
-                ),
-              ),
-              'module' => 'Userpoints',
-              'eval input' => array(
-                '0' => 'points',
-              ),
-            ),
-            '#weight' => 0,
           ),
         ),
         '#version' => 6003,
@@ -916,6 +1027,10 @@ function main_rules_defaults() {
           ),
           'node' => array(
             'label' => 'Content',
+            'type' => 'node',
+          ),
+          'node2' => array(
+            'label' => 'Content2',
             'type' => 'node',
           ),
         ),

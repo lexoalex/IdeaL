@@ -33,53 +33,20 @@ function ideal_theme_pages($key) {
 function ideal_nodeapi(&$node, $op, $a3 = NULL, $a4 = NULL) {
   switch ($op) {
     case 'presave':
+      dpm($node);
+      $node2 = $node->nid ? node_load($node->nid) : $node;
+      dpm($node2); 
       if ($node->type == 'idea') {
-        //get the comments author on this node.
-        $resource = db_query("SELECT cid, uid FROM {comments} WHERE nid = %d", $node->nid);
-        //Go over the comments authors and send them to the rule set to grant them points.
-        while($row = db_fetch_array( $resource )) {
-          $comment_author = user_load($row['uid']);
-          rules_invoke_rule_set('rules_points_to_comments_authors', array('user' => $comment_author, 'node' => $node));         
-        }
+        if (rules_get_rule_set('rules_points_to_comments_authors')) {
+          //get the comments author on this node.
+          $resource = db_query("SELECT cid, uid FROM {comments} WHERE nid = %d", $node->nid);
+          //Go over the comments authors and send them to the rule set to grant them points.
+          while($row = db_fetch_array( $resource )) {
+            $comment_author = user_load($row['uid']);
+            rules_invoke_rule_set('rules_points_to_comments_authors', array('user' => $comment_author, 'node' => $node));         
+          }
+        }  
       }
-      
-//      //get the comments author on this node.
-//      $resource = db_query("SELECT cid, uid FROM {comments} WHERE nid = %d", $node->nid);
-//      //Go over the comments authors and send them to the rule set to grant them points.
-//      while($row = db_fetch_array( $resource )) {
-//        $comment_author = user_load($row['uid']);
-//        rules_invoke_rule_set('rules_points_to_comments_authors', array('user' => $comment_author, 'node' => $node));
-//        //dpm(rules_get_rule_set('rules_points_to_comments_authors'));
-//      }
-      // TODO:  Move this to rules module/
-//      
-//        //if it's have tags 'Under Review' or 'Launched'.
-//        foreach($node->taxonomy as $term){
-//        if (strtolower($term->name) == t('under review') || strtolower($term->name == t('launched'))) {
-//          $sql = "SELECT cid, uid FROM {comments} WHERE nid = %d";
-//          $resource = db_query($sql, $node->nid);
-//          //Go over the comment authors/
-//          while($row = db_fetch_array( $resource )) {
-//            $comment_author = $row['uid'];
-//            //if the tag is 'Under Review' Add 1 point to author of comment/
-//            if (strtolower($term->name) == t('under review')) {
-//              $params = array (
-//              	'uid' => $comment_author,
-//          			'points' => 1,
-//              );
-//            }
-//            //if the tag is 'Launched' Add 2 points to athour of comment
-//            if (strtolower($term->name) == t('launched')) {
-//              $params = array (
-//              	'uid' => $comment_author,
-//          			'points' => 2,
-//              );
-//            }
-//            userpoints_userpointsapi($params); 
-//          }
-//        }   
-//      }   
-//    }  
   break;
   };
 }
