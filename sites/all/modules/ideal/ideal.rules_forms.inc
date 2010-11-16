@@ -15,3 +15,14 @@ function ideal_condition_content_has_term_form($settings, &$form, $form_state) {
     '#required' => TRUE,
   );
 }
+
+function ideal_condition_content_term_changed_form($settings, &$form, &$form_state) {
+  $settings += array('term_id' => '');
+  $form['settings']['term_id'] = array(
+    '#type' => 'textfield',
+    '#title' => t('Term ID'),
+    '#default_value' => $settings['term_id'],
+    '#description' => t('Select the term id (tid) to look at.'),
+    '#required' => TRUE,
+  );
+}

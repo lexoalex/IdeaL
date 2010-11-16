@@ -40,6 +40,15 @@ function ideal_rules_condition_info() {
       'help' => t('Check whether the node has a specified term.'),
       'module' => 'Ideal',
     ),
+    'ideal_condition_content_term_changed' => array(
+      'label' => t('Term has changed'),
+      'arguments' => array(
+        'node' => array('type' => 'node', 'label' => t('Content containing changes')),
+        'node_unchanged' => array('type' => 'node', 'label' => t('Content not containing changes')),
+      ),
+      'help' => t('You should make sure that the used term exists in the given content type.'),
+      'module' => 'Ideal',
+    ),  
   );
 }
 
@@ -68,6 +77,27 @@ function ideal_condition_content_has_term($node, $settings) {
     }
     if ($term->tid == $settings['term']) {
       return TRUE;
+    }
+  }
+  return FALSE;
+}
+/**
+ * Condition Implementation: Check if the term has changed.
+ */
+function ideal_condition_content_term_changed($node1, $node2, $settings) {
+  if (!empty($settings['term'])) {
+    foreach ($node1->taxonomy as $term1) {
+      if (is_numeric($term1)) {
+        $term1 = taxonomy_get_term($term1);
+      }
+      foreach ($node2->taxonomy as $term2) {
+        if (is_numeric($term2)) {
+          $term2 = taxonomy_get_term($term2);
+        }
+        if ($term1->tid == $term2->tid) {
+          return TRUE;
+        }
+      }
     }
   }
   return FALSE;
