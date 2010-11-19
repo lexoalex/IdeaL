@@ -33,14 +33,22 @@ function ideal_theme_pages($key) {
 function ideal_nodeapi(&$node, $op, $a3 = NULL, $a4 = NULL) {
   switch ($op) {
     case 'view':
-      if ($node->type == 'idea') {
+     if ($node->type == 'idea') {
+        $can_edit = user_access('use vote up/down on nodes') || user_access('view vote up/down count on nodes');
+        $vote_on_teaser = (bool)variable_get('vud_node_widget_vote_on_teaser', TRUE);
         $tag = variable_get('vud_tag', 'vote');
         $widget = variable_get('vud_node_widget', 'plain');
+//        $page_view = views_get_current_view(); 
+//        $display_id = $page_view->current_display;
         $flag = flag_get_flag('in_action');
-        $node = menu_get_object();
-        $page_view = views_get_current_view(); 
-        $display_id = $page_view->current_display;
         $readonly = ($flag->is_flagged($node->nid)) ? TRUE : FALSE;
+//        $open = ($flag->is_flagged($node->nid)) ? FALSE : TRUE;
+//        if ($teaser == 1) {
+//          $readonly = !$vote_on_teaser || !$can_edit || !$open;
+//        }
+//        else {
+//          $readonly = !$can_edit || !$open;
+//        }
         $node->content['vud_node_widget_display'] = array(
         	'#value' => theme('vud_widget', $node->nid, 'node', $tag, $widget, $readonly),
           '#weight' => -10,
