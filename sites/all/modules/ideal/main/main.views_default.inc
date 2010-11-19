@@ -1393,7 +1393,7 @@ function main_views_default_views() {
   $handler->override_option('style_options', array(
     'grouping' => '',
   ));
-  $handler = $view->new_display('block', 'Category', 'block_1');
+  $handler = $view->new_display('block', 'Categories', 'block_1');
   $handler->override_option('filters', array(
     'vid' => array(
       'operator' => 'in',
@@ -1415,7 +1415,7 @@ function main_views_default_views() {
       'relationship' => 'none',
     ),
   ));
-  $handler->override_option('title', 'Category');
+  $handler->override_option('title', 'Categories');
   $handler->override_option('block_description', '');
   $handler->override_option('block_caching', -1);
   $handler = $view->new_display('block', 'Tags', 'block_2');
