@@ -24,8 +24,9 @@ function ideal_pro_profile_modules() {
       'path_alias_cache',
       //ctools
       'ctools', 
-       
-      'addthis', 
+        
+        
+        
       'admin', 
       'admin_menu',  
       'adminrole', 
