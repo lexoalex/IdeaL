@@ -33,8 +33,7 @@ function ideal_pro_profile_modules() {
       'advanced_help', 
       'backup_migrate',  
       'backup_migrate_files',  
-      'boxes', 
-      'comment_notify',  
+      'boxes',  
       'content', 
  //   'content_profile', 
  //   'content_profile_registration',  
@@ -46,14 +45,11 @@ function ideal_pro_profile_modules() {
  //   'devel_generate',  
       'diff',
       'faq', 
-      'features',  
-      'flag',  
-      'flag_abuse',   
+      'features',     
       'ideal',
     	'install_profile_api',
       'jquery_ui',
     	'login_destination',
-      'main',
       'optionwidgets', 
     	'pathauto', 
     	'rules', 
@@ -73,7 +69,14 @@ function ideal_pro_profile_modules() {
     	'webform', 
     	'wysiwyg', 
     );
-    return array_merge($core, $contrib);
+    
+    $feature = array(
+      'fe_main',
+      'fe_project',
+      'fe_challenge',
+      'fe_news',
+    );
+    return array_merge($core, $contrib, $feature);
 }
 
 /**
