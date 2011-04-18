@@ -1,0 +1,36 @@
+--- modules/quicktabs/js/quicktabs.js (revision 17)
++++ modules/quicktabs/js/quicktabs.js (working copy)
+@@ -24,7 +24,21 @@
+   // Search for the active tab.
+   var $active_tab = $(el).children('.quicktabs_tabs').find('li.active a');
+
+-  if ($active_tab.hasClass('qt_tab') || $active_tab.hasClass('qt_ajax_tab')) {
++  // recall state
++  var cookie_name  = "quicktabs" + qtid;
++  var cookie_start = document.cookie.indexOf( cookie_name + "=" );
++  var cookie_end   = document.cookie.indexOf( ";", cookie_start );
++  if (
++    document.cookie.length > 0
++    && cookie_start != -1
++    && cookie_end   != -1
++  ) {
++    cookie_start  = cookie_start + cookie_name.length + 1;
++    active_tab    = document.cookie.substring( cookie_start,cookie_end );
++    var active_id = "quicktabs-tab-" + qtid + "-" + active_tab;
++    $(el).children('.quicktabs_tabs').find("a#" + active_id).trigger('click');
++  }
++  else if ($active_tab.hasClass('qt_tab') || $active_tab.hasClass('qt_ajax_tab')) {
+     $active_tab.trigger('click');
+   }
+   else {
+@@ -144,6 +158,11 @@
+   $(this).parents('li').siblings().removeClass('active');
+   $(this).parents('li').addClass('active');
+
++  // store state
++  var active_tab_id = this.id.split('-')[3];
++  var qtid          = this.id.split('-')[2];
++  document.cookie = "quicktabs" + qtid + "=" + active_tab_id + "; path=/";
++ 
+   // Hide all tabpages.
+   tab.container.children().hide();

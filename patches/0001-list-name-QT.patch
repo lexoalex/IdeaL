@@ -1,0 +1,39 @@
+From 6c7b01397f13dc189b86b9bacafc283399b33d22 Mon Sep 17 00:00:00 2001
+From: Konforti <raz@linnovate.net>
+Date: Fri, 28 Jan 2011 13:10:32 +0200
+Subject: [PATCH] hack QT
+
+---
+ sites/all/modules/quicktabs/includes/admin.inc |    4 ++--
+ sites/all/modules/quicktabs/quicktabs.module   |    2 +-
+ 2 files changed, 3 insertions(+), 3 deletions(-)
+
+diff --git a/sites/all/modules/quicktabs/includes/admin.inc b/sites/all/modules/quicktabs/includes/admin.inc
+index ea39c68..b031456 100644
+--- a/sites/all/modules/quicktabs/includes/admin.inc
++++ b/sites/all/modules/quicktabs/includes/admin.inc
+@@ -29,9 +29,9 @@ function quicktabs_list() {
+           $delete = '';
+           break;
+       }
+
+       $tablerow = array(
+-        array('data' => $quicktabs['title']),
++        array('data' => $quicktabs['machine_name']),
+         array('data' => $storage),
+         array('data' => l(t('Edit'), 'admin/build/quicktabs/'. $quicktabs['machine_name'] .'/edit')),
+         array('data' => l(t('Export'), 'admin/build/quicktabs/'. $quicktabs['machine_name'] .'/export')),
+diff --git a/sites/all/modules/quicktabs/quicktabs.module b/sites/all/modules/quicktabs/quicktabs.module
+index 83125ff..925baa6 100644
+--- a/sites/all/modules/quicktabs/quicktabs.module
++++ b/sites/all/modules/quicktabs/quicktabs.module
+@@ -154,7 +154,7 @@ function quicktabs_block($op = 'list', $delta = 0, $edit = array()) {
+     case 'list':
+       $blocks = array();
+       foreach (quicktabs_get_all_quicktabs() as $qt_name => $quicktabs) {
+-        $blocks[$qt_name]['info'] = $quicktabs['title'];
++        $blocks[$qt_name]['info'] = 'QT:' . $quicktabs['machine_name'];
+         $blocks[$qt_name]['cache'] = BLOCK_NO_CACHE;
+       }
+       return $blocks;
+

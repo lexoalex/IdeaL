@@ -1,0 +1,266 @@
+From 1a4800a1ee618dd9a335e555c0df91adc937e1c0 Mon Sep 17 00:00:00 2001
+From: Marco Villegas <marvil07@gmail.com>
+Date: Thu, 11 Nov 2010 03:45:43 -0500
+Subject: [PATCH] feature #966658 by marvil07 | greggles: Prevent multiple votes in the same direction by the same user.
+ - Two more variables to specify vote link statuses on templates.
+ - Change all widgets accordingly.
+ - Prevent voting on ajax callback.
+
+---
+ vud.theme.inc                    |   40 ++++++++++++++++++++++++++-----------
+ widgets/alternate/widget.tpl.php |   12 +++++++---
+ widgets/plain/widget.tpl.php     |   24 +++++++++++++++-------
+ widgets/upanddown/upanddown.css  |    7 +----
+ widgets/upanddown/widget.tpl.php |   19 ++++++++++++++++-
+ widgets/updown/updown.css        |    4 +-
+ widgets/updown/widget.tpl.php    |   24 +++++++++++++++-------
+ 7 files changed, 89 insertions(+), 41 deletions(-)
+
+diff --git vud.theme.inc vud.theme.inc
+index 7f8f43f..d9ab762 100644
+--- vud.theme.inc
++++ vud.theme.inc
+@@ -215,6 +215,8 @@ function vud_widget_proxy($content_id, $type, $tag, $widget_theme, $readonly=NUL
+   $link_down = url("vote/$type/$content_id/-1/$tag/$widget_theme/$token_down");
+   $message_on_deny = variable_get('vud_message_on_deny', FALSE);
+   $variables['show_links'] = !$readonly || $message_on_deny;
++  $variables['show_up_as_link'] = $variables['show_links'] && ($user_vote <= 0);
++  $variables['show_down_as_link'] = $variables['show_links'] && ($user_vote >= 0);
+   if ($readonly) {
+     $variables['link_class_up'] .= ' denied';
+     $variables['link_class_down'] .= ' denied';
+@@ -334,27 +336,41 @@ function vud_add_files($type, $plugin) {
+ function vud_vote($type, $content_id, $value, $tag, $widget, $token) {
+   if (is_numeric($value) && drupal_valid_token($token, "vote/$type/$content_id/$value/$tag/$widget", TRUE)) {
+     $vote = array();
++
++    $casted_vote_criteria = array(
++      'content_type' => $type,
++      'content_id' => $content_id,
++      'tag' => $tag,
++    ) + votingapi_current_user_identifier();
++    $casted_vote = votingapi_select_single_vote_value($casted_vote_criteria);
++
+     // Sanity-check the incoming values.
+     if ($value > 0) {
+-      $vote['value'] = 1;
++        $value = 1;
+     }
+     elseif ($value < 0) {
+-      $vote['value'] = -1;
++      $value = -1;
+     }
+     else {
+-      $vote['value'] = 0;
++      $value = FALSE;
+     }
+ 
+-    $vote['value_type'] = 'points';
+-    $tag = $tag ? $tag : variable_get('vud_tag', 'vote');
+-    $vote['tag'] = $tag;
++    // Do not allow vote with the same value
++    if ( ($casted_vote > 0 && $value > 0) || ($casted_vote < 0 && $value < 0) ) {
++      $value = FALSE;
++    }
+ 
+-    $vote['content_id'] = $content_id;
+-    $vote['content_type'] = $type;
+-    $vote['tag'] = $tag;
+-    $votes = array(0 => $vote);
+-    drupal_alter('vud_votes', $votes);
+-    votingapi_set_votes($votes);
++    if ($value !== FALSE) {
++      $vote['value'] = $value;
++      $vote['value_type'] = 'points';
++      $tag = $tag ? $tag : variable_get('vud_tag', 'vote');
++      $vote['tag'] = $tag;
++      $vote['content_id'] = $content_id;
++      $vote['content_type'] = $type;
++      $votes = array(0 => $vote);
++      drupal_alter('vud_votes', $votes);
++      votingapi_set_votes($votes);
++    }
+   }
+   else {
+     watchdog('vud',
+diff --git widgets/alternate/widget.tpl.php widgets/alternate/widget.tpl.php
+index 40c9f2f..6cac8f8 100644
+--- widgets/alternate/widget.tpl.php
++++ widgets/alternate/widget.tpl.php
+@@ -11,10 +11,14 @@
+   <?php if ($class_up) : ?>
+     <div class="alternate-votes-display"><?php print $unsigned_points; ?></div>
+     <?php if ($show_links): ?>
+-      <a href="<?php print $link_up; ?>" rel="nofollow" class="<?php print $link_class_up; ?>">
+-        <div class="<?php print $class_up; ?>" title="<?php print t('Vote up!'); ?>"></div>
+-        <div class="element-invisible"><?php print t('Vote up!'); ?></div>
+-      </a>
++      <?php if ($show_up_as_link): ?>
++        <a href="<?php print $link_up; ?>" rel="nofollow" class="<?php print $link_class_up; ?>">
++      <?php endif; ?>
++          <div class="<?php print $class_up; ?>" title="<?php print t('Vote up!'); ?>"></div>
++          <div class="element-invisible"><?php print t('Vote up!'); ?></div>
++      <?php if ($show_up_as_link): ?>
++        </a>
++      <?php endif; ?>
+     <?php endif; ?>
+   <?php endif; ?>
+ </div>
+diff --git widgets/plain/widget.tpl.php widgets/plain/widget.tpl.php
+index ebe58f6..8d3eb78 100644
+--- widgets/plain/widget.tpl.php
++++ widgets/plain/widget.tpl.php
+@@ -9,13 +9,21 @@
+ ?>
+ <?php if ($show_links): ?>
+   <div class="vud-widget vud-widget-plain" id="<?php print $id; ?>">
+-    <a href="<?php print $link_up; ?>" rel="nofollow" class="<?php print $link_class_up; ?>">
+-      <span class="<?php print $class_up; ?>" title="<?php print t('Vote up!'); ?>"></span>
+-      <div class="element-invisible"><?php print t('Vote up!'); ?></div>
+-    </a>
+-    <a href="<?php print $link_down; ?>" rel="nofollow" class="<?php print $link_class_down; ?>">
+-      <span class="<?php print $class_down; ?>" title="<?php print t('Vote down!'); ?>"></span>
+-      <div class="element-invisible"><?php print t('Vote down!'); ?></div>
+-    </a>
++    <?php if ($show_up_as_link): ?>
++      <a href="<?php print $link_up; ?>" rel="nofollow" class="<?php print $link_class_up; ?>">
++    <?php endif; ?>
++        <span class="<?php print $class_up; ?>" title="<?php print t('Vote up!'); ?>"></span>
++        <div class="element-invisible"><?php print t('Vote up!'); ?></div>
++    <?php if ($show_up_as_link): ?>
++      </a>
++    <?php endif; ?>
++    <?php if ($show_down_as_link): ?>
++      <a href="<?php print $link_down; ?>" rel="nofollow" class="<?php print $link_class_down; ?>">
++    <?php endif; ?>
++        <span class="<?php print $class_down; ?>" title="<?php print t('Vote down!'); ?>"></span>
++        <div class="element-invisible"><?php print t('Vote down!'); ?></div>
++    <?php if ($show_down_as_link): ?>
++      </a>
++    <?php endif; ?>
+   </div>
+ <?php endif; ?>
+diff --git widgets/upanddown/upanddown.css widgets/upanddown/upanddown.css
+index 9504386..977dd00 100644
+--- widgets/upanddown/upanddown.css
++++ widgets/upanddown/upanddown.css
+@@ -6,13 +6,9 @@
+   float: left;
+ }
+ 
+-.vud-widget-upanddown a {
+-  text-decoration: none;
+-  float: left;
+-}
+-
+ .vud-widget-upanddown a.vud-link-up span,
+ .vud-widget-upanddown a.vud-link-down span {
++  text-decoration: none;
+   margin-right: 7px;
+ }
+ 
+@@ -40,6 +36,7 @@
+ .vud-widget-upanddown .down-inactive,
+ .vud-widget-upanddown .up-active,
+ .vud-widget-upanddown .down-active {
++  float: left;
+   display: block;
+   width: 20px;
+   height: 22px;
+diff --git widgets/upanddown/widget.tpl.php widgets/upanddown/widget.tpl.php
+index cb472e7..7cd6a1a 100644
+--- widgets/upanddown/widget.tpl.php
++++ widgets/upanddown/widget.tpl.php
+@@ -6,19 +6,34 @@
+  * widget.tpl.php
+  *
+  * UpAndDown widget theme for Vote Up/Down
++ * TODO use $show_up_as_link and $show_down_as_link
+  */
+ ?>
+ <div class="vud-widget vud-widget-upanddown" id="<?php print $id; ?>">
+   <div class="up-score clear-block">
+     <?php if ($show_links): ?>
+-      <a href="<?php print $link_up; ?>" rel="nofollow" class="<?php print "$link_class_up $class_up"; ?>" title="<?php print t('Vote up!'); ?>"><div class="element-invisible"><?php print t('Vote up!'); ?></div></a>
++      <?php if ($show_up_as_link): ?>
++        <a href="<?php print $link_up; ?>" rel="nofollow" class="<?php print "$link_class_up"; ?>" title="<?php print t('Vote up!'); ?>">
++      <?php endif; ?>
++          <div class="<?php print $class_up; ?>" title="<?php print t('Vote up!'); ?>"></div>
++          <div class="element-invisible"><?php print t('Vote up!'); ?></div>
++      <?php if ($show_up_as_link): ?>
++        </a>
++      <?php endif; ?>
+     <?php endif; ?>
+     <span class="up-current-score"><?php print $up_points; ?></span>
+   </div>
+ 
+   <div class="down-score clear-block">
+     <?php if ($show_links): ?>
+-      <a href="<?php print $link_down; ?>" rel="nofollow" class="<?php print "$link_class_down $class_down"; ?>" title="<?php print t('Vote down!'); ?>"><div class="element-invisible"><?php print t('Vote down!'); ?></div></a>
++      <?php if ($show_down_as_link): ?>
++        <a href="<?php print $link_down; ?>" rel="nofollow" class="<?php print "$link_class_down"; ?>" title="<?php print t('Vote down!'); ?>">
++      <?php endif; ?>
++          <div class="<?php print $class_down; ?>" title="<?php print t('Vote down!'); ?>"></div>
++          <div class="element-invisible"><?php print t('Vote down!'); ?></div>
++      <?php if ($show_down_as_link): ?>
++        </a>
++      <?php endif; ?>
+     <?php endif; ?>
+     <span class="down-current-score"><?php print $down_points; ?></span>
+   </div>
+diff --git widgets/updown/updown.css widgets/updown/updown.css
+index 4e10780..259213a 100644
+--- widgets/updown/updown.css
++++ widgets/updown/updown.css
+@@ -43,12 +43,12 @@
+   font-size: 20px;
+ }
+ 
+-.vud-widget-updown .vud-link-up div {
++.vud-widget-updown div.updown-up {
+   float: left;
+   margin-right: 3px;
+ }
+ 
+-.vud-widget-updown .vud-link-down div {
++.vud-widget-updown div.updown-down {
+   float: left;
+   margin-left: 3px;
+ }
+diff --git widgets/updown/widget.tpl.php widgets/updown/widget.tpl.php
+index 9eb5ce3..705cff5 100644
+--- widgets/updown/widget.tpl.php
++++ widgets/updown/widget.tpl.php
+@@ -14,13 +14,21 @@
+     <?php print $vote_label; ?>
+   </div>
+   <?php if ($show_links): ?>
+-    <a href="<?php print $link_up; ?>" rel="nofollow" class="<?php print $link_class_up; ?>">
+-      <div class="<?php print $class_up; ?>" title="<?php print t('Vote up!'); ?>">+</div>
+-      <div class="element-invisible"><?php print t('Vote up!'); ?></div>
+-    </a>
+-    <a href="<?php print $link_down; ?>" rel="nofollow" class="<?php print $link_class_down; ?>">
+-      <div class="<?php print $class_down; ?>" title="<?php print t('Vote down!'); ?>">-</div>
+-      <div class="element-invisible"><?php print t('Vote down!'); ?></div>
+-    </a>
++    <?php if ($show_up_as_link): ?>
++      <a href="<?php print $link_up; ?>" rel="nofollow" class="<?php print $link_class_up; ?>">
++    <?php endif; ?>
++        <div class="<?php print $class_up; ?> updown-up" title="<?php print t('Vote up!'); ?>">+</div>
++        <div class="element-invisible"><?php print t('Vote up!'); ?></div>
++    <?php if ($show_up_as_link): ?>
++      </a>
++    <?php endif; ?>
++    <?php if ($show_down_as_link): ?>
++      <a href="<?php print $link_down; ?>" rel="nofollow" class="<?php print $link_class_down; ?>">
++    <?php endif; ?>
++        <div class="<?php print $class_down; ?> updown-down" title="<?php print t('Vote down!'); ?>">-</div>
++        <div class="element-invisible"><?php print t('Vote down!'); ?></div>
++    <?php if ($show_down_as_link): ?>
++      </a>
++    <?php endif; ?>
+   <?php endif; ?>
+ </div>
+-- 
+1.7.2.3
+
