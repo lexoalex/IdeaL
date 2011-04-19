@@ -2107,7 +2107,7 @@ click now <span class="link-arrow">Add an idea</span> and join your great idea.<
   $handler->override_option('block_caching', -1);
 
   $views[$view->name] = $view;
-  
+
   // Exported view: comments_feed
   $view = new view;
   $view->name = 'comments_feed';

@@ -17,9 +17,9 @@ function fe_main_taxonomy_default_vocabularies() {
       'module' => 'features_categories',
       'weight' => '0',
       'nodes' => array(
-        'project' => 'project',
-        'idea' => 'idea',
         'challenge' => 'challenge',
+        'idea' => 'idea',
+        'project' => 'project',
       ),
     ),
     'news' => array(

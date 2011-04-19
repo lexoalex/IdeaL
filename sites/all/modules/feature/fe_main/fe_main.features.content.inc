@@ -388,11 +388,11 @@ function fe_main_content_default_fields() {
   // Translatables
   // Included for use with string extractors like potx.
   t('Challenge');
-  t('Ideas');
   t('In Action');
-  t('Launched date');
   t('Project');
   t('image_type');
+  t('user_avatar_image');
+  t('user_image');
 
   return $fields;
 }
