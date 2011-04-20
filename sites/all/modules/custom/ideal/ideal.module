@@ -45,7 +45,7 @@ function _empty_page() {
 /**
  * Implementation of hook_block().
  */
-function strauss_block($op = 'list', $delta = 0) {
+function ideal_block($op = 'list', $delta = 0) {
 	if ($op == 'list') {
   	$blocks['three_main_buttons'] = array(
   		'info' => t('Ideal: Three Main Buttons'),  
@@ -63,7 +63,7 @@ function strauss_block($op = 'list', $delta = 0) {
      	case 'three_main_buttons':
       	$block = array(
        		'subject' => '',
-        	'content' => theme('strauss_three_main_buttons'),
+        	'content' => theme('ideal_three_main_buttons'),
         );
        	break;
       case 'monthly_filter':

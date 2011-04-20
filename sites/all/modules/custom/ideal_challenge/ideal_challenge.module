@@ -67,18 +67,20 @@ function ideal_challenge_theme($existing, $type, $theme, $path) {
  */
 function theme_ideal_challenge_add_idea($form) { 
   $challenge_nid = variable_get('default_challenge', NULL);
-  $challenge_node = node_load($challenge_nid);
-  $challenge_db_info = content_database_info(content_fields('field_challenge', 'idea'));
-  $challenge_field = $challenge_db_info['columns']['nid']['column'];
-  $challenge_table = $challenge_db_info['table'];
-  $count = db_result(
-    db_query(
-    	"SELECT COUNT(*) 
-    	FROM $challenge_table 
-    	WHERE $challenge_field = %d",
-      $challenge_nid 
-    )
-  );
+  if ($challenge_nid) {
+    $challenge_node = node_load($challenge_nid);
+    $challenge_db_info = content_database_info(content_fields('field_challenge', 'idea'));
+    $challenge_field = $challenge_db_info['columns']['nid']['column'];
+    $challenge_table = $challenge_db_info['table'];
+    $count = db_result(
+      db_query(
+        "SELECT COUNT(*) 
+        FROM $challenge_table 
+        WHERE $challenge_field = %d",
+        $challenge_nid 
+      )
+    );
+  }
   $is_front = drupal_is_front_page();
   if ($is_front) {
     $output .= '<div id="challenge_add_idea">';

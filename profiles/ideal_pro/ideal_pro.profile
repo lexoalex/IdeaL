@@ -35,25 +35,45 @@ function ideal_pro_profile_modules() {
       'backup_migrate_files',  
       'boxes',  
       'content', 
- //   'content_profile', 
- //   'content_profile_registration',  
- //   'content_profile_tokens', 
       'context', 
+      'contextphp',
       'context_layouts', 
       'context_ui',
-      'devel', 
- //   'devel_generate',  
+      'devel',   
       'diff',
+      'email_confirm',
       'faq', 
-      'features',     
-      'ideal',
+      'features',
+      'features_override', 
+      'flag',
+      'googleanalytics',
+      'heartbeat',
+      'help',
+      'htmlmail',
+      'ideal',    
+      'ideal_challenge',
+      'ideal_popular',
+      'ideal_project',  
     	'install_profile_api',
       'jquery_ui',
-    	'login_destination',
+      'jquery_update',
+      'logintoboggan',
+      'nodequeue',
+      'nodereference',
+      'nodewords',
+      'nodewords_basic',
+      'nodewords_nodetype',  
       'optionwidgets', 
-    	'pathauto', 
+      'page_title',
+      'path',
+    	'pathauto',
+      'print',
+      'print_mail',
+      'print_pdf',
+      'quicktabs',  
     	'rules', 
-    	'rules_admin', 
+    	'rules_admin',
+      'service_links',  
     	'strongarm',
       'text',
     	'token', 
@@ -61,9 +81,9 @@ function ideal_pro_profile_modules() {
     	'userpoints_rules',  
     	'views',
       'views_bulk_operations',
-      'views_groupby',
     	'views_ui',  
-    	'votingapi', 
+    	'votingapi',
+      'voting_rules',  
     	'vud', 
     	'vud_node',  
     	'webform', 
@@ -255,6 +275,8 @@ function ideal_pro_profile_tasks(&$task, $url) {
   //creates menu items.
   _ideal_pro_add_menu_items();
   
+  _ideal_pro_add_queue();
+  
   // Update the menu router information.
   menu_rebuild();
 }
@@ -305,11 +327,11 @@ function  _ideal_pro_set_theme($default_theme, $admin_theme, $frontpage) {
  * Create dummy terms.
  */
 function _ideal_pro_create_terms() {
-  $vids = array(2, 3, 4);
-  foreach ($vids as $vid) {
-    $names = array(abc, def, ghi);
-    foreach ($names as $name) {
-      install_taxonomy_add_term($vid, $name . ' - ' . $vid);
+  $vocabs = taxonomy_get_vocabularies('idea');
+  foreach ($vocabs as $vocab) {
+    $terms = array('Socialism', 'Solidarity', 'Equality');
+    foreach ($terms as $term) {
+      install_taxonomy_add_term($vocab->vid, '(' . $vocab->vid .  ')' . $term);
     }
   }
 }
@@ -318,7 +340,7 @@ function _ideal_pro_create_terms() {
  * Add dummy users.
  */
 function _ideal_pro_add_users() {
-  $users = array(dan, ben, sara);
+  $users = array('John Lennon', 'Paul McCartney', 'George Harrison', 'Ringo Starr');
   foreach($users as $user){
     install_add_user($user, $user . '1234', $user . '@email.com', 'authenticated user', 1);
   }
@@ -334,7 +356,7 @@ function _ideal_pro_add_ideas() {
   	'uid' => 1,
     'name' => $user->name,
   );
-  $ideas = array('Good idea', 'Great idea', 'An idea');
+  $ideas = array("Fly to the moon", "Establish a rock band", "Eat an ice cream");
   foreach($ideas as $idea){
     install_create_node($idea, 'Your idea description..', $properties);
   } 
@@ -360,10 +382,60 @@ function _ideal_pro_add_pages() {
  * Set menu items..
  */
 function _ideal_pro_add_menu_items() {
-  //install_menu_create_menu_item($path, $title, $description = '', $menu = 'navigation', $plid = 0, $weight = 0, $module = 'menu', $hidden = 0, $has_children = 0, $expanded = 0, $customized = 0, $updated = 0);
-  install_menu_create_menu_item('about-us','About Us','', 'primary-links', 0, 1);
-  install_menu_create_menu_item('terms-of-use','Terms of Use', '', 'primary-links', 0, 2);
-  install_menu_create_menu_item('privacy-policy','Privacy Policy', '', 'primary-links', 0, 3);
-  install_menu_create_menu_item('faq','FAQ', '', 'primary-links', 0, 4);
+  install_menu_create_menu_item('about-us',       'About Us',         '', 'primary-links', 0, 1);
+  install_menu_create_menu_item('terms-of-use',   'Terms of Use',     '', 'primary-links', 0, 2);
+  install_menu_create_menu_item('privacy-policy', 'Privacy Policy',   '', 'primary-links', 0, 3);
+  install_menu_create_menu_item('faq',            'FAQ',              '', 'primary-links', 0, 4);
 }
 
+function _ideal_pro_add_queue() {
+ $queue_data = array(
+    'focus' => array(
+      'title' => 'Ideas in focus',
+      'subqueue_title' => '',
+      'size' => '6',
+      'reverse' => 0,
+      'link' => 'Add to focused',
+      'link_remove' => 'Remove from focused',
+      'roles' => array ( ),
+      'types' => array ( 0 => 'idea',),
+      'i18n' => 1,
+      'op' => 'Submit',
+      'submit' => 'Submit',
+      'owner' => 'nodequeue',
+      'show_in_links' => false,
+      'show_in_tab' => true,
+      'show_in_ui' => true,
+      'reference' => 0,
+      'subqueues' => array ( ),
+      'new' => true,
+      'add_subqueue' => array ( 0 => 'Ideas in focus',), // match title above
+    ),
+     'head_to_heade' => array(
+      'title' => 'Head to head',
+      'subqueue_title' => '',
+      'size' => '2',
+      'reverse' => 0,
+      'link' => 'Add to head to head',
+      'link_remove' => 'Remove from head to head',
+      'roles' => array ( ),
+      'types' => array ( 0 => 'idea',),
+      'i18n' => 1,
+      'op' => 'Submit',
+      'submit' => 'Submit',
+      'owner' => 'nodequeue',
+      'show_in_links' => false,
+      'show_in_tab' => true,
+      'show_in_ui' => true,
+      'reference' => 0,
+      'subqueues' => array ( ),
+      'new' => true,
+      'add_subqueue' => array ( 0 => 'Head to head',), // match title above
+    ),
+  );
+  
+  foreach ($queue_data as $q) {
+    $queue = (object) $q;
+    $qid = nodequeue_save($queue); // sets $queue->qid if needed.
+  }  
+}
