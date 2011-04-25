@@ -47,7 +47,7 @@
       
       <?php print $links ?>
 
-      <?php if (!$comment->pid && $user->uid): ?>
+      <?php if (/*!$comment->pid &&*/ $user->uid): ?>
       <?php 
         print drupal_get_form("comment_form_$node->nid$comment->cid",array('nid' => $node->nid, 'pid' => $comment->cid));      ?>
       <?php endif; ?>

@@ -3,6 +3,8 @@
  *  Implementation of hook_init().
  */
 function ideal_comments_init() {
+  drupal_add_js(drupal_get_path('module', 'ideal_comments') . '/theme/scripts/ideal_comments.js');
+  drupal_add_css(drupal_get_path('module', 'ideal_comments') . '/theme/styles/ideal_comments.css');
 }
 
 /**
@@ -18,7 +20,6 @@ function ideal_comments_theme_registry_alter(&$theme_registry) {
   if ($comment_reg !== FALSE) {
     array_splice( $theme_registry['comment']['theme paths'], $comment_reg + 1, 0, drupal_get_path('module', 'ideal_comments') . '/theme');
   } 
-      dpm($theme_registry);
 }
 
 /**
