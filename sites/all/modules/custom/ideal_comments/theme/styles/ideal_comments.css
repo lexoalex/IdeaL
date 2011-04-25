@@ -1,0 +1,7 @@
+#comments .indented,
+#comments .comment-form {
+  display: none;
+}
+#comments .comment_show {
+  cursor: pointer;
+}
