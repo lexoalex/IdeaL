@@ -1,5 +1,7 @@
 #comments .indented,
-#comments .comment-form {
+#comments .comment-form,
+.show-all-comments.hidden,
+.comment.js-hidden {
   display: none;
 }
 #comments .comment_show {

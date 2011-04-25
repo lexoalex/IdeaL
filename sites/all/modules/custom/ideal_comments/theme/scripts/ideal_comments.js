@@ -1,7 +1,8 @@
 $(document).ready(function(){
-      // Show only first 3 comments
-    if($("#comments").children(".comment").size()>10) {
-      $("#comments").append('<div class="show-all-comments">' +Drupal.t('Show all comments')+ '</div><div class="show-all-comments less hidden">' +Drupal.t('Show less comments')+ '</div>');
+      // Show only first 10 comments
+    if ($("#comments").children(".comment").size() > 10) {
+      $("#comments").append(
+        '<div class="show-all-comments">' + Drupal.t('Show all comments') + '</div><div class="show-all-comments less hidden">' + Drupal.t('Show less comments') + '</div>');
       $("#comments").children(".comment").slice(10).addClass("js-hidden");
     }
     $(".show-all-comments").click(function() {
