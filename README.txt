@@ -1,4 +1,4 @@
-ideaL is an out of the box system for collecting ideas and collaborating over ideas in a community. It is meant to be used by organizations and enterprises as a mean to listen to their clients, and learn about their desires and wishes. The inspiration for the product came from http://mystarbucksidea.force.com/ but ideaL takes it a bit further.
+IdeaL is an out of the box system for collecting ideas and collaborating over ideas in a community. It is meant to be used by organizations and enterprises as a mean to listen to their clients, and learn about their desires and wishes. The inspiration for the product came from http://mystarbucksidea.force.com/ but ideaL takes it a bit further.
 It is designed to be rather simple on one hand, but still to be feature-rich enough to get you started with almost everything you need to build your client a website to communicate with /their/ clients.
 
 **What's in the box?**
