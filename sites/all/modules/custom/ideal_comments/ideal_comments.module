@@ -11,7 +11,7 @@ function ideal_comments_init() {
 * Implementation of hook_registry_alter
 */
 function ideal_comments_theme_registry_alter(&$theme_registry) {
-  $node_reg    = array_search('modules/node', $theme_registry['node']['theme paths']);
+  $node_reg = array_search('modules/node', $theme_registry['node']['theme paths']);
   $comment_reg = array_search('modules/comment', $theme_registry['comment']['theme paths']);
 
   if ($node_reg !== FALSE) {
@@ -19,7 +19,7 @@ function ideal_comments_theme_registry_alter(&$theme_registry) {
   }
   if ($comment_reg !== FALSE) {
     array_splice( $theme_registry['comment']['theme paths'], $comment_reg + 1, 0, drupal_get_path('module', 'ideal_comments') . '/theme');
-  } 
+  }
 }
 
 /**
@@ -46,7 +46,6 @@ function ideal_comments_form_alter(&$form, $form_state, $form_id) {
       $form['#validate'][] = 'comment_form_validate';
     }
     $form['#attributes'] = array('class' => 'comment-form');
-    $form['notify_settings']['#access'] = false;
     $form['comment_filter']['comment']['#rows'] = '5';
     $form['comment_filter']['format']['#weight'] = '0';
     unset($form['_author']);

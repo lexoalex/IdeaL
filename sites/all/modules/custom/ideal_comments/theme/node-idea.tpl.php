@@ -48,15 +48,34 @@
  * @see template_preprocess_node()
  */
 ?>
-<?php global $user;?>
-
 <div id="node-<?php print $node->nid; ?>" class="node<?php if ($sticky) { print ' sticky'; } ?><?php if (!$status) { print ' node-unpublished'; } ?> clear-block">
 
-<?php print views_embed_view('ideas', 'default', $node->nid); ?>
+<?php print $picture ?>
 
+<?php if (!$page): ?>
+  <h2><a href="<?php print $node_url ?>" title="<?php print $title ?>"><?php print $title ?></a></h2>
+<?php endif; ?>
+
+  <div class="meta">
+  <?php if ($submitted): ?>
+    <span class="submitted"><?php print $submitted ?></span>
+  <?php endif; ?>
+
+  <?php if ($terms): ?>
+    <div class="terms terms-inline"><?php print $terms ?></div>
+  <?php endif;?>
+  </div>
+
+  <div class="content">
+    <?php print $content ?>
+  </div>
+
+  <?php print $links; ?>
+  
+  
 </div>
 
-<?php if (arg(0) == 'node' && is_numeric(arg(1)) && arg(2) == NULL && $node->comment == '2') : ?>
+<?php if ($node->comment == '2') : ?>
   <div class="box comment-form-box clear-block">
     <?php if ($user->uid) : ?>
       <?php print drupal_get_form('comment_form', array('nid' => $node->nid)); ?>

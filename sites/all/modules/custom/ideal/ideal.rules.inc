@@ -126,7 +126,7 @@ function ideal_condition_content_has_term($node, $settings) {
 function ideal_rules_term_changed($node1, $node2, $settings) {
   // Get information about the term.
   $term = $settings['vocabulary'];
-dpm(_term_has_value($node1->$settings['vocabulary'], $node2->$settings['vocabulary']));
+  //dpm(_term_has_value($node1->$settings['vocabulary'], $node2->$settings['vocabulary']));
   return !empty($term) && !_term_has_value($node1->$settings['vocabulary'], $node2->$settings['vocabulary']);
 }
 
