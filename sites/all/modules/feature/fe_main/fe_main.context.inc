@@ -60,7 +60,7 @@ function fe_main_context_default_contexts() {
   $context->reactions = array(
     'block' => array(
       'blocks' => array(
-        'strauss-three_main_buttons' => array(
+        'ideal-three_main_buttons' => array(
           'module' => 'ideal',
           'delta' => 'three_main_buttons',
           'region' => 'content',
@@ -70,19 +70,25 @@ function fe_main_context_default_contexts() {
           'module' => 'views',
           'delta' => 'idea_in_focus-block_1',
           'region' => 'content',
-          'weight' => 3,
+          'weight' => 1,
         ),
         'views-news-block_1' => array(
           'module' => 'views',
           'delta' => 'news-block_1',
           'region' => 'content',
-          'weight' => 5,
+          'weight' => 2,
         ),
         'views-recent_ideas-block_1' => array(
           'module' => 'views',
           'delta' => 'recent_ideas-block_1',
           'region' => 'content',
-          'weight' => 6,
+          'weight' => 3,
+        ),
+        'ideal-head_to_head' => array(
+          'module' => 'ideal',
+          'delta' => 'head_to_head',
+          'region' => 'content',
+          'weight' => 4,
         ),
       ),
     ),

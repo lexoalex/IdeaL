@@ -1000,12 +1000,12 @@ function fe_main_strongarm() {
   $strongarm->value = array(
     'idea' => 'idea',
     'challenge' => 0,
+    'faq' => 0,
     'news' => 0,
     'page' => 0,
     'project' => 0,
     'webform' => 0,
     'profile' => 0,
-    'faq' => 0,
   );
 
   $export['vud_node_types'] = $strongarm;
@@ -1020,14 +1020,14 @@ function fe_main_strongarm() {
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
   $strongarm->api_version = 1;
   $strongarm->name = 'vud_node_widget';
-  $strongarm->value = 'voting';
+  $strongarm->value = 'updown';
 
   $export['vud_node_widget'] = $strongarm;
   $strongarm = new stdClass;
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
   $strongarm->api_version = 1;
   $strongarm->name = 'vud_node_widget_show';
-  $strongarm->value = '1';
+  $strongarm->value = '3';
 
   $export['vud_node_widget_show'] = $strongarm;
   $strongarm = new stdClass;

@@ -281,7 +281,6 @@ function ideal_head_to_head() {
   global $user;
   $scores = array();
   $nodes = array();
-  $i = 0;
   $result = db_query(
     "SELECT  nq.nid AS nid, n.title AS title, v.value AS total_score
     FROM {nodequeue_nodes} nq
@@ -294,16 +293,18 @@ function ideal_head_to_head() {
     HEAD_TO_HEAD_QID);
 
   while ($fetch = db_fetch_object($result)) {
-    $nodes[$i]['score'] = $fetch->total_score;
-    $nodes[$i]['nid']   = $fetch->nid;
-    $nodes[$i]['title'] = $fetch->title;
-    $i++;
+    $nodes[]  = array(
+      'score' => $fetch->total_score,
+      'nid'   => $fetch->nid,
+      'title' => $fetch->title  
+    );
   }
   if (count($nodes)) {
     $chart = _ideal_head_to_head_chart($nodes[0]['score'], $nodes[1]['score']);
     if ($user->uid) {
-      $widget1 = theme('vud_widget', $nodes[0]['nid'], 'node', 'vote', 'voting', false, '');
-      $widget2 = theme('vud_widget', $nodes[1]['nid'], 'node', 'vote', 'voting', false, '');
+      $widget_theme = variable_get('vud_node_widget', 'updown');
+      $widget1 = theme('vud_widget', $nodes[0]['nid'], 'node', 'vote', $widget_theme, false, '');
+      $widget2 = theme('vud_widget', $nodes[1]['nid'], 'node', 'vote', $widget_theme, false, '');
     }
     else {
       $widget1 = '';
@@ -315,7 +316,8 @@ function ideal_head_to_head() {
 
     $node2 = new stdClass();
     $node2->nid = $nodes[1]['nid'];
-    $node2->title = '<div class="node-title">' . l(check_plain($nodes[0]['title']), "node/" . $node2->nid) . '</div>';
+    $node2->title = '<div class="node-title">' . l(check_plain($nodes[1]['title']), "node/" . $node2->nid) . '</div>';
+    
     $title = t('Here are two ideas, which one is better ?');
     $first = $node1->title . $widget1;
     $second = $node2->title . $widget2;
