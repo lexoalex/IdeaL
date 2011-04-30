@@ -66,29 +66,11 @@ function fe_main_context_default_contexts() {
           'region' => 'content',
           'weight' => 0,
         ),
-        'boxes-front_page_video' => array(
-          'module' => 'boxes',
-          'delta' => 'front_page_video',
-          'region' => 'content',
-          'weight' => 1,
-        ),
-        'boxes-box-5a02e051' => array(
-          'module' => 'boxes',
-          'delta' => 'box-5a02e051',
-          'region' => 'content',
-          'weight' => 2,
-        ),
         'views-idea_in_focus-block_1' => array(
           'module' => 'views',
           'delta' => 'idea_in_focus-block_1',
           'region' => 'content',
           'weight' => 3,
-        ),
-        'ideal_challenge-challenge_add_idea' => array(
-          'module' => 'ideal_challenge',
-          'delta' => 'challenge_add_idea',
-          'region' => 'content',
-          'weight' => 4,
         ),
         'views-news-block_1' => array(
           'module' => 'views',
