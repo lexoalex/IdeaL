@@ -1,4 +1,7 @@
 <?php 
+
+define(HEAD_TO_HEAD_QID, 2);
+
 /**
  *  Implementation of hook_init().
  */
@@ -280,20 +283,20 @@ function ideal_head_to_head() {
   $nodes = array();
   $i = 0;
   $result = db_query(
-    "SELECT n.title AS title, v.value AS total_score, nq.nid AS nid 
-    FROM {votingapi_cache} v, 
-    INNER JOIN {nodequeue_nodes} nq,
+    "SELECT  nq.nid AS nid, n.title AS title, v.value AS total_score
+    FROM {nodequeue_nodes} nq
     INNER JOIN {node} n 
-    WHERE function = 'sum' 
-    AND nq.nid = v.content_id 
-    AND nq.qid = %d 
-    AND n.nid = nq.nid", 
+    ON nq.nid = n.nid
+    LEFT JOIN {votingapi_cache} v
+    ON nq.nid = v.content_id 
+    AND function = 'sum'  
+    WHERE nq.qid = %d", 
     HEAD_TO_HEAD_QID);
 
-  while ($row = db_fetch_object($result)) {
-    $nodes[$i]['score'] = $row->total_score;
-    $nodes[$i]['nid'] = $row->nid;
-    $nodes[$i]['title'] = $row->title;
+  while ($fetch = db_fetch_object($result)) {
+    $nodes[$i]['score'] = $fetch->total_score;
+    $nodes[$i]['nid']   = $fetch->nid;
+    $nodes[$i]['title'] = $fetch->title;
     $i++;
   }
   if (count($nodes)) {
