@@ -37,8 +37,7 @@ function fe_main_user_default_permissions() {
     'name' => 'access all views',
     'roles' => array(
       '0' => 'administrator',
-      '1' => 'privilege',
-      '2' => 'site-manager',
+      '1' => 'site-manager',
     ),
   );
 
@@ -476,8 +475,9 @@ function fe_main_user_default_permissions() {
     'name' => 'create idea content',
     'roles' => array(
       '0' => 'administrator',
-      '1' => 'privilege',
-      '2' => 'site-manager',
+      '1' => 'authenticated user',
+      '2' => 'privilege',
+      '3' => 'site-manager',
     ),
   );
 
@@ -916,8 +916,9 @@ function fe_main_user_default_permissions() {
     'name' => 'post comments',
     'roles' => array(
       '0' => 'administrator',
-      '1' => 'privilege',
-      '2' => 'site-manager',
+      '1' => 'authenticated user',
+      '2' => 'privilege',
+      '3' => 'site-manager',
     ),
   );
 
@@ -926,7 +927,8 @@ function fe_main_user_default_permissions() {
     'name' => 'post comments without approval',
     'roles' => array(
       '0' => 'administrator',
-      '1' => 'site-manager',
+      '1' => 'authenticated user',
+      '2' => 'site-manager',
     ),
   );
 
@@ -1057,8 +1059,9 @@ function fe_main_user_default_permissions() {
     'name' => 'use vote up/down on nodes',
     'roles' => array(
       '0' => 'administrator',
-      '1' => 'privilege',
-      '2' => 'site-manager',
+      '1' => 'authenticated user',
+      '2' => 'privilege',
+      '3' => 'site-manager',
     ),
   );
 

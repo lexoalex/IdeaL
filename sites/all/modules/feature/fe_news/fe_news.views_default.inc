@@ -6,7 +6,7 @@
 function fe_news_views_default_views() {
   $views = array();
 
- // Exported view: news
+  // Exported view: news
   $view = new view;
   $view->name = 'news';
   $view->description = 'News and Undates';
@@ -1345,7 +1345,5 @@ function fe_news_views_default_views() {
 
   $views[$view->name] = $view;
 
- 
- 
   return $views;
 }

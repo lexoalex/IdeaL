@@ -23,7 +23,7 @@ function fe_challenge_node_info() {
       'module' => 'features',
       'description' => '',
       'has_title' => '1',
-      'title_label' => t('idea'),
+      'title_label' => t('Challenge'),
       'has_body' => '1',
       'body_label' => t('description'),
       'min_word_count' => '0',

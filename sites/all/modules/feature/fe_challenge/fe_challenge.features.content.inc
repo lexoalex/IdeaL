@@ -11,9 +11,10 @@ function fe_challenge_content_default_fields() {
     'field_name' => 'field_challenge_image',
     'type_name' => 'challenge',
     'display_settings' => array(
+      'weight' => '-2',
+      'parent' => '',
       'label' => array(
-        'format' => 'above',
-        'exclude' => 0,
+        'format' => 'hidden',
       ),
       'teaser' => array(
         'format' => 'image_plain',
@@ -55,7 +56,7 @@ function fe_challenge_content_default_fields() {
       'progress_indicator' => 'bar',
       'max_filesize_per_file' => '',
       'max_filesize_per_node' => '',
-      'max_resolution' => '500x0',
+      'max_resolution' => '500x500',
       'min_resolution' => '0',
       'alt' => '',
       'custom_alt' => 0,
