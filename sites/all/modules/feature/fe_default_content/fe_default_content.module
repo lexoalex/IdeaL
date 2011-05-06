@@ -1,0 +1,3 @@
+<?php
+
+include_once('fe_default_content.features.inc');

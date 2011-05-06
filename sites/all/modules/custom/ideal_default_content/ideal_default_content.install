@@ -1,0 +1,88 @@
+<?php 
+/**
+ * Implemenation of hook_install().
+ */
+function ideal_default_content_install() {
+  //create default term.
+  $vid = db_result(db_query("SELECT vid FROM { vocabulary} WHERE module = 'features_categories'"));
+  $tids = array();
+  $terms_name = array(
+    '0' => 'Albums',
+    '1' => 'Songs',
+    '2' => 'Live shows',
+    '3' => 'Lyrics',
+    '4' => 'Melody',
+    '5' => 'Harmony',
+    '6' => 'Instruments',
+    '7' => 'Beats',
+    '8' => 'Studio',
+    '9' => 'Productions',
+  );   
+  foreach($terms_name as $term_name) {
+    $term = array(
+      'name' => $term_name,
+      'vid'  => $vid,
+    );
+    $status = taxonomy_save_term($term);
+    $output = NULL;
+    if ($status) {
+      $tids[] = $term['tid'];
+    } 
+  }
+  variable_set('default_content_tids', $tids);
+  //end of set terms.
+  
+  //create defaults nodes and comments.
+  $nids = array();
+  $node = (object) NULL;
+  $node->type = 'idea';
+  $node->title = 'Translate Eleanor Rigby';
+  $node->uid = 1;
+  $node->comment = 2;
+  $node->body = 'Translate Eleanor Rigby to german can be cool.';
+  $node->taxonomy = array(4); 
+
+  // save node
+  node_save($node);
+  $nids[] = $node->nid;
+  $comment = array();
+  $comment['nid'] = $node->nid;
+  $comment['pid'] = 0;
+  $comment['uid'] = 6;
+  $comment['comment'] = "We don't speak German, but if you can supply a translate we can definitely can try use in our next tour";
+
+  // save comments.
+  comment_save($comment);
+  
+  variable_set('default_content_nids', $nids);
+  //end of set nodeas and comments.
+  
+  $qid = 1;
+  $q = nodequeue_load($qid);
+  $sq = nodequeue_load_subqueue($qid);
+  if ($q->title = 'Ideas in focus') {
+    for ($i = 0; $i < $q->size; $i++) {dpm($nids[$i]);
+      nodequeue_subqueue_add($q, $sq, $nids[$i]);
+    }
+  }
+  
+}
+
+/**
+ * Implemenation of hook_uninstall().
+ */
+function ideal_default_content_uninstall() {
+  //delete default nodes.
+  $nids = variable_get('default_content_nids', NULL);
+  foreach ($nids as $nid) {
+     node_delete($nid);
+  }
+  variable_del('default_content_nids');
+  
+  //delete default terms.
+  $tids = variable_get('default_content_tids', NULL);
+  foreach ($tids as $tid) {
+     taxonomy_del_term($tid);
+  }
+  variable_del('default_content_tids');
+}

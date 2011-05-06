@@ -78,7 +78,9 @@ function ideal_pro_profile_modules() {
       'text',
     	'token', 
     	'userpoints',
-    	'userpoints_rules',  
+    	'userpoints_rules',
+      'uuid',
+      'uuid_features',  
     	'views',
       'views_bulk_operations',
     	'views_ui',  
@@ -261,19 +263,19 @@ function ideal_pro_profile_tasks(&$task, $url) {
   _ideal_pro_set_theme('ideal_theme', 'rubik', 'home');
       
   //creates dummy terms.
-  _ideal_pro_create_terms();
+ // _ideal_pro_create_terms();
   
   //creates dummy users.
   _ideal_pro_add_users();
   
   //creates dummy ideas.
-  _ideal_pro_add_ideas();
+ // _ideal_pro_add_ideas();
   
   //creates general pages.
-  _ideal_pro_add_pages();
+ // _ideal_pro_add_pages();
   
   //creates menu items.
-  _ideal_pro_add_menu_items();
+ // _ideal_pro_add_menu_items();
   
   _ideal_pro_add_queue();
   
@@ -411,7 +413,7 @@ function _ideal_pro_add_queue() {
       'new' => true,
       'add_subqueue' => array ( 0 => 'Ideas in focus',), // match title above
     ),
-     'head_to_heade' => array(
+     'head_to_head' => array(
       'title' => 'Head to head',
       'subqueue_title' => '',
       'size' => '2',

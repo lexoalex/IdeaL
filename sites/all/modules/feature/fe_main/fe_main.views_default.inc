@@ -441,10 +441,10 @@ function fe_main_views_default_views() {
     ),
   ));
   $handler = $view->new_display('page', 'Page', 'page');
-  $handler->override_option('path', 'admin/content/node4');
+  $handler->override_option('path', 'admin/content/node2');
   $handler->override_option('menu', array(
     'type' => 'normal',
-    'title' => 'content 3',
+    'title' => 'content 2',
     'description' => '',
     'weight' => '0',
     'name' => 'navigation',
@@ -456,38 +456,6 @@ function fe_main_views_default_views() {
     'weight' => 0,
     'name' => 'navigation',
   ));
-  $handler = $view->new_display('feed', 'Feed', 'feed_1');
-  $handler->override_option('items_per_page', 0);
-  $handler->override_option('style_plugin', 'views_xls');
-  $handler->override_option('style_options', array(
-    'mission_description' => FALSE,
-    'description' => '',
-    'attach_text' => 'XLS',
-    'provide_file' => 1,
-    'filename' => 'view-%view.xls',
-    'parent_sort' => 0,
-  ));
-  $handler->override_option('row_plugin', 'node_rss');
-  $handler->override_option('path', 'content-report/export');
-  $handler->override_option('menu', array(
-    'type' => 'none',
-    'title' => '',
-    'description' => '',
-    'weight' => 0,
-    'name' => 'navigation',
-  ));
-  $handler->override_option('tab_options', array(
-    'type' => 'none',
-    'title' => '',
-    'description' => '',
-    'weight' => 0,
-    'name' => 'navigation',
-  ));
-  $handler->override_option('displays', array(
-    'page' => 'page',
-    'default' => 0,
-  ));
-  $handler->override_option('sitename_title', FALSE);
 
   $views[$view->name] = $view;
 
