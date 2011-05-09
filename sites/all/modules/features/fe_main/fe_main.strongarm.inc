@@ -441,28 +441,28 @@ function fe_main_strongarm() {
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
   $strongarm->api_version = 1;
   $strongarm->name = 'idea_popular_comment_points';
-  $strongarm->value = '0';
+  $strongarm->value = '5';
 
   $export['idea_popular_comment_points'] = $strongarm;
   $strongarm = new stdClass;
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
   $strongarm->api_version = 1;
   $strongarm->name = 'idea_popular_period';
-  $strongarm->value = '0';
+  $strongarm->value = '604800';
 
   $export['idea_popular_period'] = $strongarm;
   $strongarm = new stdClass;
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
   $strongarm->api_version = 1;
   $strongarm->name = 'idea_popular_total';
-  $strongarm->value = '0';
+  $strongarm->value = '100';
 
   $export['idea_popular_total'] = $strongarm;
   $strongarm = new stdClass;
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
   $strongarm->api_version = 1;
   $strongarm->name = 'idea_popular_vote_points';
-  $strongarm->value = '0';
+  $strongarm->value = '1';
 
   $export['idea_popular_vote_points'] = $strongarm;
   $strongarm = new stdClass;
@@ -497,7 +497,7 @@ function fe_main_strongarm() {
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
   $strongarm->api_version = 1;
   $strongarm->name = 'node_admin_theme';
-  $strongarm->value = 0;
+  $strongarm->value = TRUE;
 
   $export['node_admin_theme'] = $strongarm;
   $strongarm = new stdClass;
@@ -586,14 +586,14 @@ function fe_main_strongarm() {
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
   $strongarm->api_version = 1;
   $strongarm->name = 'pathauto_node_page_pattern';
-  $strongarm->value = '[title-raw]';
+  $strongarm->value = '';
 
   $export['pathauto_node_page_pattern'] = $strongarm;
   $strongarm = new stdClass;
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
   $strongarm->api_version = 1;
   $strongarm->name = 'pathauto_node_pattern';
-  $strongarm->value = '[type]-[nid]';
+  $strongarm->value = 'content/[title-raw]';
 
   $export['pathauto_node_pattern'] = $strongarm;
   $strongarm = new stdClass;
@@ -656,7 +656,7 @@ function fe_main_strongarm() {
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
   $strongarm->api_version = 1;
   $strongarm->name = 'pathauto_taxonomy_pattern';
-  $strongarm->value = '[vocab-raw]/[tid]';
+  $strongarm->value = 'category/[vocab-raw]/[catpath-raw]';
 
   $export['pathauto_taxonomy_pattern'] = $strongarm;
   $strongarm = new stdClass;
@@ -670,7 +670,7 @@ function fe_main_strongarm() {
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
   $strongarm->api_version = 1;
   $strongarm->name = 'pathauto_user_pattern';
-  $strongarm->value = 'users/[uid]';
+  $strongarm->value = 'users/[user-raw]';
 
   $export['pathauto_user_pattern'] = $strongarm;
   $strongarm = new stdClass;

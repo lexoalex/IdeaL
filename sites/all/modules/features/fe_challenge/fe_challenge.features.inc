@@ -32,3 +32,12 @@ function fe_challenge_node_info() {
   );
   return $items;
 }
+
+/**
+ * Implementation of hook_views_api().
+ */
+function fe_challenge_views_api() {
+  return array(
+    'api' => '2',
+  );
+}

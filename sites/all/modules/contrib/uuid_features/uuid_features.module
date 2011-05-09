@@ -1,4 +1,5 @@
 <?php
+// $Id: uuid_features.module,v 1.1 2010/07/26 22:16:15 rz Exp $
 
 /**
  * Implementation of hook_features_api().
@@ -23,6 +24,18 @@ function uuid_features_features_api() {
       'default_hook' => 'uuid_features_default_terms',
       'default_file' => FEATURES_DEFAULTS_INCLUDED,
       'file' => drupal_get_path('module', 'uuid_features') .'/includes/uuid_term.features.inc',
+    ),
+    'uuid_comment' => array(
+      'name' => t('Comment'),
+      'default_hook' => 'uuid_features_default_comments',
+      'default_file' => FEATURES_DEFAULTS_INCLUDED,
+      'file' => drupal_get_path('module', 'uuid_features') .'/includes/uuid_comment.features.inc',
+    ),
+    'uuid_user' => array(
+      'name' => t('User'),
+      'default_hook' => 'uuid_features_default_user',
+      'default_file' => FEATURES_DEFAULTS_INCLUDED,
+      'file' => drupal_get_path('module', 'uuid_features') .'/includes/uuid_user.features.inc',
     ),
   );
 

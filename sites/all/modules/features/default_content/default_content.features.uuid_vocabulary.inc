@@ -3,11 +3,11 @@
 /**
  * Implementation of hook_uuid_features_default_vocabularies().
  */
-function fe_default_content_uuid_features_default_vocabularies() {
+function default_content_uuid_features_default_vocabularies() {
   $vocabularies = array();
 
   $vocabularies[] = array(
-    'uuid' => '05f5f602-7636-11e0-ad89-c44619ee2e3d',
+    'uuid' => 'fd8f023d-78ab-11e0-ad89-c44619ee2e3d',
     'name' => 'Categories',
     'description' => '',
     'help' => '',

@@ -38,7 +38,7 @@ function uuid_node_features_export($data, &$export, $module_name = '') {
 
   foreach ($data as $uuid) {
     $node = node_get_by_uuid($uuid);
-
+    $export['features']['uuid_user'][$uuid] = uuid_get_uuid('users', 'uid', $node->uid);
     $export['features']['uuid_node'][$uuid] = $uuid;
     $pipe['node'][$node->type] = $node->type;
 
@@ -78,12 +78,17 @@ function uuid_node_features_export_render($module, $data) {
     // Don't cause conflicts with the legacy nid/vid fields.
     unset($export->nid);
     unset($export->vid);
+    unset($export->uid);
 
+    $query = 'SELECT uu.uuid FROM {uuid_users} uu WHERE uu.uid = %d';
+    $user_uuid = db_result(db_query($query, $node->uid));  
+    $export->uuid_user = $user_uuid;
+    
     // The hook_alter signature is:
     // hook_uuid_node_features_export_render_alter(&$export, $node, $module);
     drupal_alter('uuid_node_features_export_render', $export, $node, $module);
 
-    $code[] = '  $nodes[] = '. features_var_export($export) .';';
+    $code[] = '  $nodes[] = '. features_var_export($export, '  ') .';';
   }
 
   if (!empty($translatables)) {
@@ -120,6 +125,8 @@ function uuid_node_features_rebuild($module) {
       if (!empty($existing)) {
         $node->nid = $existing->nid;
         $node->vid = $existing->vid;
+        $node->uid = $existing->uid;
+        
       }
 
       // The hook_alter signature is:

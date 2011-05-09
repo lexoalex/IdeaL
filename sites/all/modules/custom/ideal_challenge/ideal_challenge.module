@@ -84,7 +84,8 @@ function theme_ideal_challenge_add_idea($form) {
   $is_front = drupal_is_front_page();
   if ($is_front) {
     $output .= '<div id="challenge_add_idea">';
-    $output .= '<h2>' . t('One challenge a month')/*$challenge_node->title*/. '</h2>';    $output .= l(t('To all previous challenges'), 'challenges', array('attributes' => array('class' => 'view-all')));
+    $output .= '<h2>' . t('One challenge a month')/*$challenge_node->title*/. '</h2>';    
+    $output .= l(t('To all previous challenges'), 'challenges', array('attributes' => array('class' => 'view-all')));
     $output .= '<div class="challenge-image">' . theme('imagecache', '140x140_thumb', $challenge_node->field_challenge_image[0]['filepath'], 'Challenge image', 'Challenge image') . '</div>';
     $output .= '<div class="challenge_content">';
     $output .= '<h3>' . $challenge_node->title . '</h3><p>' . $challenge_node->body . '</p>';

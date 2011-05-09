@@ -24,40 +24,6 @@ function fe_main_ctools_plugin_api() {
  */
 function fe_main_flag_default_flags() {
 $flags = array();
-// Exported flag: "Bookmarks".
-$flags[] = array (
-  'content_type' => 'node',
-  'name' => 'bookmarks',
-  'title' => 'Bookmarks',
-  'global' => '0',
-  'types' => 
-  array (
-  ),
-  'flag_short' => 'Bookmark this',
-  'flag_long' => 'Add this post to your bookmarks',
-  'flag_message' => 'This post has been added to your bookmarks',
-  'unflag_short' => 'Unbookmark this',
-  'unflag_long' => 'Remove this post from your bookmarks',
-  'unflag_message' => 'This post has been removed from your bookmarks',
-  'unflag_denied_text' => '',
-  'link_type' => 'toggle',
-  'roles' => 
-  array (
-    'flag' => 
-    array (
-    ),
-    'unflag' => 
-    array (
-    ),
-  ),
-  'show_on_page' => 0,
-  'show_on_teaser' => 0,
-  'show_on_form' => 0,
-  'access_author' => '',
-  'i18n' => 0,
-  'module' => 'fe_main',
-  'api_version' => 2,
-);
 // Exported flag: "In Action".
 $flags[] = array (
   'content_type' => 'node',
@@ -66,8 +32,7 @@ $flags[] = array (
   'global' => '1',
   'types' => 
   array (
-    0 => 'idea',
-    1 => 'project',
+    0 => 'project',
   ),
   'flag_short' => 'Flag as In Action ',
   'flag_long' => 'close this idea for comments and voting',
@@ -107,7 +72,6 @@ $flags[] = array (
   'types' => 
   array (
     0 => 'project',
-    1 => 'idea',
   ),
   'flag_short' => 'flag as popular',
   'flag_long' => '',
@@ -146,8 +110,7 @@ $flags[] = array (
   'global' => '1',
   'types' => 
   array (
-    0 => 'idea',
-    1 => 'project',
+    0 => 'project',
   ),
   'flag_short' => 'flag as worth checking',
   'flag_long' => '',

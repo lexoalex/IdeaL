@@ -4,9 +4,9 @@ core = 6.x
 dependencies[] = features
 dependencies[] = uuid
 
-; Information added by drupal.org packaging script on 2011-03-12
-version = "6.x-1.x-dev"
+; Information added by drupal.org packaging script on January 1, 1970 - 00:00
+version = "6.x-1.0-alpha1"
 core = "6.x"
 project = "uuid_features"
-datestamp = "1299889547"
+datestamp = "1295552052"
 

@@ -24,9 +24,7 @@ function ideal_pro_profile_modules() {
       'path_alias_cache',
       //ctools
       'ctools', 
-        
-        
-        
+       
       'admin', 
       'admin_menu',  
       'adminrole', 
@@ -50,10 +48,6 @@ function ideal_pro_profile_modules() {
       'heartbeat',
       'help',
       'htmlmail',
-      'ideal',    
-      'ideal_challenge',
-      'ideal_popular',
-      'ideal_project',  
     	'install_profile_api',
       'jquery_ui',
       'jquery_update',
@@ -77,10 +71,7 @@ function ideal_pro_profile_modules() {
     	'strongarm',
       'text',
     	'token', 
-    	'userpoints',
-    	'userpoints_rules',
-      'uuid',
-      'uuid_features',  
+    	'userpoints', 
     	'views',
       'views_bulk_operations',
     	'views_ui',  
@@ -97,8 +88,18 @@ function ideal_pro_profile_modules() {
       'fe_project',
       'fe_challenge',
       'fe_news',
+      'default_content'  
     );
-    return array_merge($core, $contrib, $feature);
+    
+    $custom = array(
+      'ideal',    
+      'ideal_challenge',
+      'ideal_popular',
+      'ideal_project', 
+      'ideal_comments',
+      //'ideal_default_content',  
+    );
+    return array_merge($core, $contrib, $feature, $custom);
 }
 
 /**
@@ -266,7 +267,7 @@ function ideal_pro_profile_tasks(&$task, $url) {
  // _ideal_pro_create_terms();
   
   //creates dummy users.
-  _ideal_pro_add_users();
+  //_ideal_pro_add_users();
   
   //creates dummy ideas.
  // _ideal_pro_add_ideas();

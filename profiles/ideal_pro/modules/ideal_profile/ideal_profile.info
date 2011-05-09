@@ -1,0 +1,49 @@
+name = IdeaL Profile
+description = An install profile for IdeaL - Community ideas management.
+core = 6.x
+;  An array of Drupal core, contrib, or feature modules to be enabled for this
+;  install profile. Need not include the modules defined by
+;  `drupal_required_modules()`, ie. block, filter, node, system and user. Any
+;  dependencies of the listed modules will also be detected and enabled.
+
+dependencies[] = book
+dependencies[] = color
+dependencies[] = views
+dependencies[] = myblog
+
+;  The following syntax can be used to disable/exclude core modules that would
+;  otherwise be inherited from a base install profile:
+;       dependencies[book] = 0
+
+theme = bluemarine
+variables[site_frontpage] = admin
+
+;user
+users[admin][uid] = 1
+users[admin][name] = admin
+users[admin][mail] = admin@example.com
+users[admin][roles] = administrator,manager
+users[admin][status] = 1
+
+;  Note: the user password is assigned a randomly generated string and may not
+;  be directly specified in your `.info` file. Even an md5 hashed password
+;  exposes a serious vulnerability because of widespread reverse-lookup
+;  databases.
+
+;nodes
+nodes[hello][type] = blog
+nodes[hello][title] = Hello world!
+nodes[hello][body] = Lorem ipsum dolor sit amet...
+nodes[hello][uid] = 1
+
+;menus
+nodes[hello][menu][link_title] = Hello world!
+nodes[hello][menu][menu_name] = secondary-links
+
+;terms
+terms[apples][name] = Apples
+terms[apples][description] = Delicious crunchy fruit.
+terms[apples][vid] = 2.
+terms[apples][vocab_module] = features_fruit
+
+

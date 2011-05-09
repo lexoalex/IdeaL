@@ -263,6 +263,10 @@ function ideal_views_handlers() {
       'views_handler_field_custom_date' => array(
        'parent' => 'views_handler_field_date',
       ),
+        //nodereference referrer count
+      'views_handler_field_challenge_referrer_count' => array(
+       'parent' => 'views_handler_field_numeric',
+      ),
     ),
   );
 }
