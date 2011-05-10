@@ -22,7 +22,7 @@ function ideal_default_content_install() {
   $node->uid = 1;
   $node->comment = 0;
   $node->body = "We workin' on a collection album and still can't deside on a name, any ideas?";
-  $node->taxonomy = array(0); 
+  $node->taxonomy = array(1); 
   node_save($node);
   //cck field
   $first_challenge = $node->nid;
@@ -70,7 +70,7 @@ function ideal_default_content_install() {
   $node->uid = $uids[array_rand($uids)];
   $node->comment = 2;
   $node->body = "What about the black album";
-  $node->taxonomy = array(0);
+  $node->taxonomy = array(1);
   $node->field_challenge[0]['nid'] = $first_challenge;
   node_save($node);
   //comment
@@ -140,7 +140,7 @@ function ideal_default_content_install() {
   $node->uid = $uids[array_rand($uids)];
   $node->comment = 2;
   $node->body = "seven?";
-  $node->taxonomy = array(0);
+  $node->taxonomy = array(1);
   $node->field_challenge[0]['nid'] = $first_challenge;
   node_save($node);
   //comment
@@ -199,6 +199,22 @@ function _ideal_add_users($names, $beatle = FALSE) {
 function _ideal_add_default_terms() {
   //create default term.
   $vid = db_result(db_query("SELECT vid FROM {vocabulary} WHERE module = 'features_categories'"));
+  if(!$vid) {
+    $vocab = array(
+    'name'          => t('Categories'),
+    'description'   => t('Ideas Categories'),
+    'nodes'         => array('idea' => 1),
+    'hierarchy'     => 0,
+    'relations'     => 0,
+    'tags'          => 0,
+    'multiple'      => 0,
+    'required'      => 1,
+    'weight'        => 0,
+    'module'        => 'features_categories'
+    );
+    taxonomy_save_vocabulary($vocab);
+  }
+  
   $tids = array();
   $terms_name = array(
     '0' => 'Albums',
@@ -223,7 +239,7 @@ function _ideal_add_default_terms() {
       $tids[] = $term['tid'];
     } 
   }
-  //save the tids terms so we will be able to delete them on uninstall.
+  //save the term's tids so we will be able to delete them on uninstall.
   variable_set('ideal_default_content_tids', $tids);
   
 }

@@ -27,11 +27,18 @@
  *   language-specific profiles. Profiler also looks to 'path' to discover 
  *   the path of the Profiler include.
  */
-function profiler_example_profile_details() {
+function ideal_profile_profile_details() {
   return array(
-    'name' => 'Profiler Example',
-    'description' => 'An example Install profile that uses Profiler.',
-    'path' => dirname(__FILE__),
+    'name' => 'IdeaL by Linnovate',
+    'description' => 'Installation of IdeaL. A community ideas management system.',
+    //'path' => dirname(__FILE__),
+  );
+  global $conf;
+  $conf['site_name'] = '';
+  $conf['site_footer'] = 'IdeaL by <a href="http://www.linnovate.net">Linnovate</a>';
+  $conf['theme_settings'] = array(
+    'default_logo' => 0,
+    'logo_path' => 'profiles/ideal_pro/ideal_pro_logo.png',
   );
 }
 
@@ -41,8 +48,8 @@ function profiler_example_profile_details() {
  * @return
  *   An array of modules to enable.
  */
-//function profiler_example_profile_modules() {
-//  return profiler_profile_modules('profiler_example');
+//function ideal_profile_profile_modules() {
+//  return profiler_profile_modules('ideal_profile');
 //}
 
 /**
@@ -53,8 +60,8 @@ function profiler_example_profile_details() {
  *   keys of the array will be used internally, while the values will be 
  *   displayed to the user in the installer task list.
  */
-//function profiler_example_profile_task_list() {
-//  return profiler_profile_task_list('profiler_example');
+//function ideal_profile_profile_task_list() {
+//  return profiler_profile_task_list('ideal_profile');
 //}
 
 /**
@@ -71,8 +78,8 @@ function profiler_example_profile_details() {
  *   An optional HTML string to display to the user. Only used if you modify 
  *   the $task, otherwise discarded.
  */
-//function profiler_example_profile_tasks(&$task, $url) {
-//  profiler_profile_tasks('profiler_example', $task, $url);
+//function ideal_profile_profile_tasks(&$task, $url) {
+//  profiler_profile_tasks('ideal_profile', $task, $url);
 //}
 
 /**
@@ -86,6 +93,6 @@ function profiler_example_profile_details() {
  * variables by hand in your Profiler include, you'll need this function in your 
  * install profile.
  */
-//function profiler_example_form_alter(&$form, $form_state, $form_id) {
-//  profiler_form_alter('profiler_example', $form, $form_state, $form_id);
+//function ideal_profile_form_alter(&$form, $form_state, $form_id) {
+//  profiler_form_alter('ideal_profile', $form, $form_state, $form_id);
 //}

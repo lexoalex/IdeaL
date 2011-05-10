@@ -2,7 +2,7 @@
 
 name = IdeaL
 core = 6.x
-theme = chameleon
+theme = ideal_theme
 
 ;core
 dependencies[] = help
@@ -67,6 +67,7 @@ dependencies[] = service_links
 dependencies[] = text
 dependencies[] = token
 dependencies[] = userpoints
+dependencies[] = userpoints_rules
 dependencies[] = views
 dependencies[] = views_bulk_operations
 dependencies[] = views_ui
@@ -119,35 +120,14 @@ roles[admin] = administrator
 ;users[superduper][roles]  = administrator
 ;users[superduper][status] = 1
 
-users[sitemanager][uid]    = 2
-users[sitemanager][name]   = John Lennon
-users[sitemanager][mail]   = john@beatles
-users[sitemanager][pass]   = cb6f3b8fa1aa7248aee240f594448a39
+;users[sitemanager][uid]    = 2
+;users[sitemanager][name]   = John Lennon
+;users[sitemanager][mail]   = john@beatles
+;users[sitemanager][pass]   = cb6f3b8fa1aa7248aee240f594448a39
 ;users[sitemanager][roles]  = administrator
-users[sitemanager][status] = 1
+;users[sitemanager][status] = 1
 
-users[sitemanager][uid]    = 3
-users[sitemanager][name]   = Paul McCartney
-users[sitemanager][mail]   = john@beatles
-users[sitemanager][pass]   = cb6f3b8fa1aa7248aee240f594448a39
-;users[sitemanager][roles]  = administrator
-users[sitemanager][status] = 1
-
-users[sitemanager][uid]    = 4
-users[sitemanager][name]   = George Harrison
-users[sitemanager][mail]   = john@beatles
-users[sitemanager][pass]   = cb6f3b8fa1aa7248aee240f594448a39
-;users[sitemanager][roles]  = administrator
-users[sitemanager][status] = 1
-
-users[sitemanager][uid]    = 5
-users[sitemanager][name]   = Ringo Starr
-users[sitemanager][mail]   = john@beatles
-users[sitemanager][pass]   = cb6f3b8fa1aa7248aee240f594448a39
-;users[sitemanager][roles]  = administrator
-users[sitemanager][status] = 1
-
-
+;input-formats
 input-formats[markdown][name] = Markdown
 input-formats[markdown][default] = 1
 input-formats[markdown][roles] = anonymous user,authenticated user
@@ -207,7 +187,7 @@ variables[site_name] = IdeaL
 variables[site_mail] = info@ideal.com
 
 variables[site_footer] = IdeaL by Linnovate
-;variables[site_frontpage] = node/1
+;variables[site_frontpage] = home
 variables[theme_settings][toggle_node_info_page] = 0
 
 ; You may also want to set the clean url variable if you don't need clean urls. 
@@ -238,8 +218,3 @@ node-types[page][min_word_count] = ''
 ;nodes[front][title] = Isn't Profiler nifty?
 ;nodes[front][uid] = 2
 ;nodes[front][body] = <p>Donec vel ipsum elit. In rutrum, ante at fringilla pharetra, mi justo fermentum risus; eget commodo est mi lobortis augue. Proin fringilla malesuada semper. Ut velit sapien, condimentum vel faucibus ut, aliquam quis dui? Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vivamus vulputate fringilla enim, non convallis nibh lacinia at. Etiam fermentum, lectus ac sagittis volutpat, est augue tincidunt mi, et consectetur orci nisi sit amet sapien. Ut nisi nunc, molestie quis sollicitudin at, dignissim eget nisl? Sed vitae sem lectus. Curabitur viverra laoreet magna. Sed eget sapien tellus, eu tempor purus. Proin dignissim, lacus vitae venenatis porttitor, justo libero rhoncus felis, nec dictum nisl mi vitae nisi. Maecenas tincidunt eros at turpis sollicitudin nec viverra enim condimentum. Sed nec enim justo. In tristique risus dui; ac egestas mi. Proin at arcu sed enim eleifend ornare eu at arcu. Curabitur ullamcorper, ipsum eu imperdiet pharetra, mauris lorem hendrerit metus, in consectetur mauris est iaculis eros. Quisque euismod hendrerit metus ullamcorper tempus! Cras gravida ornare arcu vitae commodo. In hac habitasse platea turpis duis.</p>
-
-nodes[front][type] = idea
-nodes[front][title] = Isn't Profiler nifty?
-nodes[front][uid] = 2
-nodes[front][body] = <p>Donec vel ipsum elit. In rutrum, ante at fringilla pharetra, mi justo fermentum risus; eget commodo est mi lobortis augue. Proin fringilla malesuada semper. Ut velit sapien, condimentum vel faucibus ut, aliquam quis dui? Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vivamus vulputate fringilla enim, non convallis nibh lacinia at. Etiam fermentum, lectus ac sagittis volutpat, est augue tincidunt mi, et consectetur orci nisi sit amet sapien. Ut nisi nunc, molestie quis sollicitudin at, dignissim eget nisl? Sed vitae sem lectus. Curabitur viverra laoreet magna. Sed eget sapien tellus, eu tempor purus. Proin dignissim, lacus vitae venenatis porttitor, justo libero rhoncus felis, nec dictum nisl mi vitae nisi. Maecenas tincidunt eros at turpis sollicitudin nec viverra enim condimentum. Sed nec enim justo. In tristique risus dui; ac egestas mi. Proin at arcu sed enim eleifend ornare eu at arcu. Curabitur ullamcorper, ipsum eu imperdiet pharetra, mauris lorem hendrerit metus, in consectetur mauris est iaculis eros. Quisque euismod hendrerit metus ullamcorper tempus! Cras gravida ornare arcu vitae commodo. In hac habitasse platea turpis duis.</p>
