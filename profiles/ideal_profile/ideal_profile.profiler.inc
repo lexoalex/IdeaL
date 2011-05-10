@@ -78,12 +78,12 @@ dependencies[] = wysiwyg
 dependencies[] = webform
 
 ;custom
-modulesdependencies[] = ideal
-modulesdependencies[] = ideal_challenge
-modulesdependencies[] = ideal_popular
-modulesdependencies[] = ideal_project
-modulesdependencies[] = ideal_comments
-;modulesdependencies[] = ideal_default_content
+dependencies[] = ideal
+dependencies[] = ideal_challenge
+dependencies[] = ideal_popular
+dependencies[] = ideal_project
+dependencies[] = ideal_comments
+dependencies[] = ideal_default_content
 
 ;features
 dependencies[] = fe_main
@@ -116,7 +116,7 @@ roles[admin] = administrator
 ;users[superduper][name]   = admin
 ;users[superduper][mail]   = admin@admin
 ;users[superduper][pass]   = 10aa208e7e9e257a3f4fe66d1acf84e8
-;users[superduper][roles]  = Admin,Publisher
+;users[superduper][roles]  = administrator
 ;users[superduper][status] = 1
 
 users[sitemanager][uid]    = 2
@@ -126,6 +126,26 @@ users[sitemanager][pass]   = cb6f3b8fa1aa7248aee240f594448a39
 ;users[sitemanager][roles]  = administrator
 users[sitemanager][status] = 1
 
+users[sitemanager][uid]    = 3
+users[sitemanager][name]   = Paul McCartney
+users[sitemanager][mail]   = john@beatles
+users[sitemanager][pass]   = cb6f3b8fa1aa7248aee240f594448a39
+;users[sitemanager][roles]  = administrator
+users[sitemanager][status] = 1
+
+users[sitemanager][uid]    = 4
+users[sitemanager][name]   = George Harrison
+users[sitemanager][mail]   = john@beatles
+users[sitemanager][pass]   = cb6f3b8fa1aa7248aee240f594448a39
+;users[sitemanager][roles]  = administrator
+users[sitemanager][status] = 1
+
+users[sitemanager][uid]    = 5
+users[sitemanager][name]   = Ringo Starr
+users[sitemanager][mail]   = john@beatles
+users[sitemanager][pass]   = cb6f3b8fa1aa7248aee240f594448a39
+;users[sitemanager][roles]  = administrator
+users[sitemanager][status] = 1
 
 
 input-formats[markdown][name] = Markdown
@@ -195,28 +215,6 @@ variables[theme_settings][toggle_node_info_page] = 0
 ; disable it you'll want to uncomment this line:
 ;variables[clean_url] = 0
 
-
-; -----------------------------------------------------------------------------
-;                                 Permissions
-; -----------------------------------------------------------------------------
-permissions[access administration pages] = Admin,Publisher
-permissions[access content] = anonymous user,authenticated user
-permissions[access user profiles] = Admin
-permissions[administer menu] = Admin,Publisher
-permissions[administer nodes] = Admin,Publisher
-permissions[administer site configuration] = Admin
-permissions[administer users] = Admin
-permissions[change own username] = authenticated user
-permissions[create page content] = Admin,Publisher
-permissions[create users] = Admin
-permissions[delete any page content] = Admin,Publisher
-permissions[delete own page content] = Admin,Publisher
-permissions[edit any page content] = Admin,Publisher
-permissions[flush imagecache] = Admin
-permissions[notify of path changes] = Admin,Publisher
-permissions[search content] = anonymous user
-
-
 ; -----------------------------------------------------------------------------
 ;                                 Nodes types
 ; -----------------------------------------------------------------------------
@@ -245,35 +243,3 @@ nodes[front][type] = idea
 nodes[front][title] = Isn't Profiler nifty?
 nodes[front][uid] = 2
 nodes[front][body] = <p>Donec vel ipsum elit. In rutrum, ante at fringilla pharetra, mi justo fermentum risus; eget commodo est mi lobortis augue. Proin fringilla malesuada semper. Ut velit sapien, condimentum vel faucibus ut, aliquam quis dui? Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vivamus vulputate fringilla enim, non convallis nibh lacinia at. Etiam fermentum, lectus ac sagittis volutpat, est augue tincidunt mi, et consectetur orci nisi sit amet sapien. Ut nisi nunc, molestie quis sollicitudin at, dignissim eget nisl? Sed vitae sem lectus. Curabitur viverra laoreet magna. Sed eget sapien tellus, eu tempor purus. Proin dignissim, lacus vitae venenatis porttitor, justo libero rhoncus felis, nec dictum nisl mi vitae nisi. Maecenas tincidunt eros at turpis sollicitudin nec viverra enim condimentum. Sed nec enim justo. In tristique risus dui; ac egestas mi. Proin at arcu sed enim eleifend ornare eu at arcu. Curabitur ullamcorper, ipsum eu imperdiet pharetra, mauris lorem hendrerit metus, in consectetur mauris est iaculis eros. Quisque euismod hendrerit metus ullamcorper tempus! Cras gravida ornare arcu vitae commodo. In hac habitasse platea turpis duis.</p>
-
-
-; -----------------------------------------------------------------------------
-;                                   Menus
-; -----------------------------------------------------------------------------
-
-; Create a new menu called Footer Links.
-menus[menu-footer-links][title] = Footer Links
-
-; Now add some Menu items to existing menus.
-menu-items[login][link_path]  = user/login
-menu-items[login][link_title] = Login
-menu-items[login][weight]     = 10
-menu-items[login][menu_name]  = menu-footer-links
-
-menu-items[logout][link_path]  = logout
-menu-items[logout][link_title] = Logout
-menu-items[logout][weight]     = 10
-menu-items[logout][menu_name]  = menu-footer-links
-
-menu-items[front][link_path]  = <front>
-menu-items[front][link_title] = Home
-menu-items[front][weight]     = -10
-menu-items[front][menu_name]  = primary-links
-
-
-; -----------------------------------------------------------------------------
-;                                   Blocks
-; -----------------------------------------------------------------------------
-blocks[menu-menu-footer-links][module] = menu
-blocks[menu-menu-footer-links][delta] = menu-footer-links
-blocks[menu-menu-footer-links][region] = right

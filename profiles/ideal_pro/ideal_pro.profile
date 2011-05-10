@@ -19,92 +19,90 @@ function ideal_pro_profile_modules() {
         'ideal_default_content',
         'install_profile_api',
     );
-//    
-//    $contrib = array(
-//      //pressflow
-//      'cookie_cache_bypass',
-//      'path_alias_cache',
-//      //ctools
-//      'ctools', 
-//       
-//      'admin', 
-//      'admin_menu',  
-//      'adminrole', 
-//      'advanced_help', 
-//      'backup_migrate',  
-//      'backup_migrate_files',  
-//      'boxes',  
-//      'content', 
-//      'context', 
-//      'contextphp',
-//      'context_layouts', 
-//      'context_ui',
-//      'devel',   
-//      'diff',
-//      'email_confirm',
-//      'faq', 
-//      'features',
-//      'features_override', 
-//      'flag',
-//      'googleanalytics',
-//      'heartbeat',
-//      'help',
-//      'htmlmail',
-//    	'install_profile_api',
-//      'jquery_ui',
-//      'jquery_update',
-//      'logintoboggan',
-//      'nodequeue',
-//      'nodereference',
-//      'nodewords',
-//      'nodewords_basic',
-//      'nodewords_nodetype',  
-//      'optionwidgets', 
-//      'page_title',
-//      'path',
-//    	'pathauto',
-//      'print',
-//      'print_mail',
-//      'print_pdf',
-//      'quicktabs',  
-//    	'rules', 
-//    	'rules_admin',
-//      'service_links',  
-//    	'strongarm',
-//      'text',
-//    	'token', 
-//    	'userpoints', 
-//    	'views',
-//      'views_bulk_operations',
-//    	'views_ui',  
-//    	'votingapi',
-//      'voting_rules',  
-//    	'vud', 
-//    	'vud_node',  
-//    	'webform', 
-//    	'wysiwyg', 
-//    );
-//    
-//    $feature = array(
-//      'fe_main',
-//      'fe_project',
-//      'fe_challenge',
-//      'fe_news',
-//      'default_content'  
-//    );
-//    
-//    $custom = array(
-//      'ideal',    
-//      'ideal_challenge',
-//      'ideal_popular',
-//      'ideal_project', 
-//      'ideal_comments',
-//      //'ideal_default_content',  
-//    );
-//    return array_merge($core, $contrib, $feature, $custom);
-  return $core;
+    
+    $contrib = array(
+      //pressflow
+      'cookie_cache_bypass',
+      'path_alias_cache',
+      //ctools
+      'ctools', 
+       
+      'admin', 
+      'admin_menu',  
+      'adminrole', 
+      'advanced_help', 
+      'backup_migrate',  
+      'backup_migrate_files',  
+      'boxes',  
+      'content', 
+      'context', 
+      'contextphp',
+      'context_layouts', 
+      'context_ui',
+      'devel',   
+      'diff',
+      'email_confirm',
+      'faq', 
+      'features',
+      'features_override', 
+      'flag',
+      'googleanalytics',
+      'heartbeat',
+      'help',
+      'htmlmail',
+    	'install_profile_api',
+      'jquery_ui',
+      'jquery_update',
+      'logintoboggan',
+      'nodequeue',
+      'nodereference',
+      'nodewords',
+      'nodewords_basic',
+      'nodewords_nodetype',  
+      'optionwidgets', 
+      'page_title',
+      'path',
+    	'pathauto',
+      'print',
+      'print_mail',
+      'print_pdf',
+      'quicktabs',  
+    	'rules', 
+    	'rules_admin',
+      'service_links',  
+    	'strongarm',
+      'text',
+    	'token', 
+    	'userpoints', 
+    	'views',
+      'views_bulk_operations',
+    	'views_ui',  
+    	'votingapi',
+      'voting_rules',  
+    	'vud', 
+    	'vud_node',  
+    	'webform', 
+    	'wysiwyg', 
+    );
+    
+    $feature = array(
+      'fe_main',
+      'fe_project',
+      'fe_challenge',
+      'fe_news',
+      'default_content'  
+    );
+    
+    $custom = array(
+      'ideal',    
+      'ideal_challenge',
+      'ideal_popular',
+      'ideal_project', 
+      'ideal_comments',
+      //'ideal_default_content',  
+    );
+    return array_merge($core, $contrib, $feature, $custom);
 }
-
 /**
  * Return a description of the profile for the initial installation screen.
  *
