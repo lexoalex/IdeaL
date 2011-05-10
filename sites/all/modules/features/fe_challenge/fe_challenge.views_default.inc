@@ -270,7 +270,11 @@ function fe_challenge_views_default_views() {
   $handler->override_option('use_pager', '1');
   $handler->override_option('distinct', 1);
   $handler = $view->new_display('block', 'תיבה', 'block_1');
+<<<<<<< HEAD
   $handler->override_option('header', '<?php $current_view = views_get_current_view(); ?>
+=======
+  $handler->override_option('header', '<?php $current_view = views_get_current_view(); ?>
+>>>>>>> dev
 <h2>כל הרעיונות לאתגר זה : (<?php print $current_view->total_rows; ?>)</h2>');
   $handler->override_option('header_format', '3');
   $handler->override_option('header_empty', 0);
