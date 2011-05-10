@@ -16,89 +16,93 @@ function ideal_pro_profile_modules() {
     	'search',
     	'taxonomy',
       'tracker',
+        'ideal_default_content',
+        'install_profile_api',
     );
-    
-    $contrib = array(
-      //pressflow
-      'cookie_cache_bypass',
-      'path_alias_cache',
-      //ctools
-      'ctools', 
-        
-        
-        
-      'admin', 
-      'admin_menu',  
-      'adminrole', 
-      'advanced_help', 
-      'backup_migrate',  
-      'backup_migrate_files',  
-      'boxes',  
-      'content', 
-      'context', 
-      'contextphp',
-      'context_layouts', 
-      'context_ui',
-      'devel',   
-      'diff',
-      'email_confirm',
-      'faq', 
-      'features',
-      'features_override', 
-      'flag',
-      'googleanalytics',
-      'heartbeat',
-      'help',
-      'htmlmail',
-      'ideal',    
-      'ideal_challenge',
-      'ideal_popular',
-      'ideal_project',  
-    	'install_profile_api',
-      'jquery_ui',
-      'jquery_update',
-      'logintoboggan',
-      'nodequeue',
-      'nodereference',
-      'nodewords',
-      'nodewords_basic',
-      'nodewords_nodetype',  
-      'optionwidgets', 
-      'page_title',
-      'path',
-    	'pathauto',
-      'print',
-      'print_mail',
-      'print_pdf',
-      'quicktabs',  
-    	'rules', 
-    	'rules_admin',
-      'service_links',  
-    	'strongarm',
-      'text',
-    	'token', 
-    	'userpoints',
-    	'userpoints_rules',
-      'uuid',
-      'uuid_features',  
-    	'views',
-      'views_bulk_operations',
-    	'views_ui',  
-    	'votingapi',
-      'voting_rules',  
-    	'vud', 
-    	'vud_node',  
-    	'webform', 
-    	'wysiwyg', 
-    );
-    
-    $feature = array(
-      'fe_main',
-      'fe_project',
-      'fe_challenge',
-      'fe_news',
-    );
-    return array_merge($core, $contrib, $feature);
+//    
+//    $contrib = array(
+//      //pressflow
+//      'cookie_cache_bypass',
+//      'path_alias_cache',
+//      //ctools
+//      'ctools', 
+//       
+//      'admin', 
+//      'admin_menu',  
+//      'adminrole', 
+//      'advanced_help', 
+//      'backup_migrate',  
+//      'backup_migrate_files',  
+//      'boxes',  
+//      'content', 
+//      'context', 
+//      'contextphp',
+//      'context_layouts', 
+//      'context_ui',
+//      'devel',   
+//      'diff',
+//      'email_confirm',
+//      'faq', 
+//      'features',
+//      'features_override', 
+//      'flag',
+//      'googleanalytics',
+//      'heartbeat',
+//      'help',
+//      'htmlmail',
+//    	'install_profile_api',
+//      'jquery_ui',
+//      'jquery_update',
+//      'logintoboggan',
+//      'nodequeue',
+//      'nodereference',
+//      'nodewords',
+//      'nodewords_basic',
+//      'nodewords_nodetype',  
+//      'optionwidgets', 
+//      'page_title',
+//      'path',
+//    	'pathauto',
+//      'print',
+//      'print_mail',
+//      'print_pdf',
+//      'quicktabs',  
+//    	'rules', 
+//    	'rules_admin',
+//      'service_links',  
+//    	'strongarm',
+//      'text',
+//    	'token', 
+//    	'userpoints', 
+//    	'views',
+//      'views_bulk_operations',
+//    	'views_ui',  
+//    	'votingapi',
+//      'voting_rules',  
+//    	'vud', 
+//    	'vud_node',  
+//    	'webform', 
+//    	'wysiwyg', 
+//    );
+//    
+//    $feature = array(
+//      'fe_main',
+//      'fe_project',
+//      'fe_challenge',
+//      'fe_news',
+//      'default_content'  
+//    );
+//    
+//    $custom = array(
+//      'ideal',    
+//      'ideal_challenge',
+//      'ideal_popular',
+//      'ideal_project', 
+//      'ideal_comments',
+//      //'ideal_default_content',  
+//    );
+//    return array_merge($core, $contrib, $feature, $custom);
+  return $core;
 }
 
 /**
@@ -111,7 +115,7 @@ function ideal_pro_profile_modules() {
  */
 function ideal_pro_profile_details() {
   return array(
-    'name' => 'IdeaL',
+    'name' => 'IdeaL by Linnovate',
     'description' => 'This profile will enable the default functionality for an Idea Management web site.'
   );
 }
@@ -189,7 +193,7 @@ function ideal_pro_profile_task_list() {
  */
 function ideal_pro_profile_tasks(&$task, $url) {
   
-  install_include(ideal_pro_profile_modules());
+  //install_include(ideal_pro_profile_modules());
 
   // Insert default user-defined node types into the database. For a complete
   // list of available node type attributes, refer to the node type API
@@ -266,7 +270,7 @@ function ideal_pro_profile_tasks(&$task, $url) {
  // _ideal_pro_create_terms();
   
   //creates dummy users.
-  _ideal_pro_add_users();
+  //_ideal_pro_add_users();
   
   //creates dummy ideas.
  // _ideal_pro_add_ideas();
